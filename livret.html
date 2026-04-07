@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livret d'accueil — Ty an aod</title>
+<meta name="description" content="Livret d'accueil digital — Toutes les informations pratiques pour votre séjour.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+<style>
+  :root {
+    --primary: #1a5276;
+    --primary-light: #2980b9;
+    --accent: #e67e22;
+    --accent-light: #f39c12;
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --text: #2c3e50;
+    --text-light: #7f8c8d;
+    --text-muted: #95a5a6;
+    --border: #ecf0f1;
+    --success: #27ae60;
+    --radius: 16px;
+    --shadow: 0 2px 16px rgba(0,0,0,0.06);
+    --shadow-hover: 0 6px 24px rgba(0,0,0,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; min-height: 100vh;
+  }
+
+  /* HEADER / HERO */
+  .hero {
+    position: relative;
+    min-height: 50vh;
+    display: flex; align-items: flex-end;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0.35;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    padding: 2rem 1.5rem 2.5rem; width: 100%;
+    max-width: 600px; margin: 0 auto;
+  }
+  .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: .3rem; }
+  .hero .tagline { font-size: 1.05rem; opacity: .9; margin-bottom: 1rem; }
+  .hero .welcome-msg {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 12px; padding: 1rem 1.2rem;
+    font-size: .95rem; line-height: 1.5;
+  }
+  .hero .host-initials {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); font-weight: 700; font-size: .9rem;
+    margin-right: .5rem; vertical-align: middle;
+  }
+
+  /* LANG TOGGLE */
+  .lang-toggle {
+    position: absolute; top: 1rem; right: 1rem; z-index: 10;
+    display: flex; gap: 4px;
+    background: rgba(255,255,255,0.2); border-radius: 8px; padding: 3px;
+    backdrop-filter: blur(10px);
+  }
+  .lang-btn {
+    border: none; background: transparent; color: #fff;
+    padding: 6px 12px; border-radius: 6px; font-size: .85rem;
+    cursor: pointer; font-weight: 500; transition: background .2s;
+  }
+  .lang-btn.active { background: rgba(255,255,255,0.3); }
+
+  /* MAIN CONTENT */
+  .main { max-width: 600px; margin: 0 auto; padding: 1.5rem; }
+  .section-title {
+    font-size: .8rem; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-muted); margin: 1.5rem 0 .8rem; font-weight: 600;
+  }
+
+  /* NAVIGATION CARDS */
+  .nav-grid { display: flex; flex-direction: column; gap: .6rem; }
+  .nav-card {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--card); border-radius: var(--radius);
+    padding: 1rem 1.2rem; box-shadow: var(--shadow);
+    cursor: pointer; transition: all .2s; text-decoration: none; color: var(--text);
+    border: 2px solid transparent;
+  }
+  .nav-card:hover { box-shadow: var(--shadow-hover); border-color: var(--primary-light); }
+  .nav-card:active { transform: scale(0.98); }
+  .nav-card .card-icon {
+    font-size: 1.6rem; width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); border-radius: 12px; flex-shrink: 0;
+  }
+  .nav-card .card-text { flex: 1; }
+  .nav-card .card-title { font-weight: 600; font-size: 1rem; }
+  .nav-card .card-subtitle { font-size: .85rem; color: var(--text-light); }
+  .nav-card .card-arrow { color: var(--text-muted); font-size: 1.2rem; }
+
+  /* PAGE DETAIL */
+  .page {
+    display: none; max-width: 600px; margin: 0 auto; padding: 0;
+    animation: fadeIn .3s ease;
+  }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .page-header {
+    display: flex; align-items: center; gap: .8rem;
+    padding: 1rem 1.5rem;
+    background: var(--card); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .back-btn {
+    border: none; background: var(--bg); color: var(--text);
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.1rem; transition: background .2s;
+  }
+  .back-btn:hover { background: var(--border); }
+  .page-header h2 { font-size: 1.1rem; font-weight: 600; }
+  .page-body { padding: 1.5rem; }
+  .page-body h3 {
+    font-size: 1rem; font-weight: 600; color: var(--primary);
+    margin: 1.5rem 0 .5rem; padding-bottom: .3rem;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+  }
+  .page-body h3:first-child { margin-top: 0; }
+  .page-body p { margin-bottom: .8rem; color: var(--text); font-size: .95rem; }
+  .page-body ul { margin: .5rem 0 1rem 1.2rem; }
+  .page-body li { margin-bottom: .3rem; font-size: .95rem; }
+  .page-body .info-box {
+    background: #eaf2f8; border-left: 4px solid var(--primary-light);
+    padding: .8rem 1rem; border-radius: 0 10px 10px 0;
+    margin: 1rem 0; font-size: .9rem;
+  }
+  .page-body .warn-box {
+    background: #fef9e7; border-left: 4px solid var(--accent);
+    padding: .8rem 1rem; border-radius: 0 10px 10px 0;
+    margin: 1rem 0; font-size: .9rem;
+  }
+  .page-body .highlight {
+    background: var(--bg); border-radius: 12px;
+    padding: 1rem; margin: 1rem 0;
+    text-align: center;
+  }
+  .page-body .highlight .big { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+  .page-body .highlight .label { font-size: .8rem; color: var(--text-light); margin-top: .2rem; }
+  .page-body .checklist { list-style: none; margin-left: 0; }
+  .page-body .checklist li::before { content: "☑ "; color: var(--success); }
+
+  /* CONTACT BUTTONS */
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--primary); color: #fff;
+    padding: .7rem 1.5rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600; font-size: .95rem;
+    margin: .3rem .3rem .3rem 0; transition: background .2s;
+  }
+  .contact-btn:hover { background: var(--primary-light); }
+  .contact-btn.secondary { background: var(--accent); }
+  .contact-btn.secondary:hover { background: var(--accent-light); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem 1rem;
+    color: var(--text-muted); font-size: .8rem;
+  }
+
+  /* HOME LINK */
+  #home-view { display: block; }
+  #home-view.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ====== HOME VIEW ====== -->
+<div id="home-view">
+  <div class="hero">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('fr')">🇫🇷 FR</button>
+      <button class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
+    </div>
+    <div class="hero-content">
+      <h1 id="hero-title"></h1>
+      <p class="tagline" id="hero-tagline"></p>
+      <div class="welcome-msg" id="welcome-msg"></div>
+    </div>
+  </div>
+  <div class="main">
+    <p class="section-title" id="guide-title"></p>
+    <div class="nav-grid" id="nav-grid"></div>
+  </div>
+  <footer id="footer"></footer>
+</div>
+
+<!-- ====== PAGE DETAIL VIEW ====== -->
+<div class="page" id="page-detail">
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <span id="page-icon" style="font-size:1.3rem"></span>
+    <h2 id="page-title"></h2>
+  </div>
+  <div class="page-body" id="page-body"></div>
+  <footer>Ty an aod — Livret d'accueil</footer>
+</div>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║  📝 CONFIGURATION DU LIVRET D'ACCUEIL                          ║
+// ║  Pascal : modifie les textes ci-dessous pour personnaliser !    ║
+// ║  Chaque section a une version FR et EN.                         ║
+// ╚══════════════════════════════════════════════════════════════════╝
+
+const CONFIG = {
+
+  // ── Nom du logement ──
+  titre: "Ty an aod",
+  tagline: {
+    fr: "Maison chaleureuse sur la dune",
+    en: "Warm house on the dune",
+  },
+
+  // ── Image de fond hero (URL ou "" pour dégradé seul) ──
+  heroImage: "",
+
+  // ── Message de bienvenue ──
+  bienvenue: {
+    fr: `Bienvenue à "Ty an aod" !\n\nNous espérons que vous passerez un séjour mémorable et que vous repartirez avec de merveilleux souvenirs.`,
+    en: `Welcome to "Ty an aod"!\n\nWe hope you have a memorable stay and leave with wonderful memories.`,
+  },
+
+  // ── Initiales de l'hôte (affiché dans le message) ──
+  hostInitials: "PJ",
+
+  // ── Label du guide ──
+  guideTitle: {
+    fr: "Livret d'accueil",
+    en: "Welcome guide",
+  },
+
+  // ── Pied de page ──
+  footer: {
+    fr: "Ty an aod — Livret d'accueil digital",
+    en: "Ty an aod — Digital welcome guide",
+  },
+
+  // ═══════════════════════════════════════════════
+  // ══ SECTIONS DU LIVRET (ajouter/supprimer/modifier librement)
+  // ═══════════════════════════════════════════════
+  sections: [
+
+    // ── VOTRE HÔTE ──
+    {
+      icon: "👤",
+      title: { fr: "Votre hôte", en: "Your host" },
+      subtitle: { fr: "Qui suis-je", en: "About me" },
+      content: {
+        fr: `
+          <h3>Pascal</h3>
+          <p>Passionné par cette région, j'ai souhaité partager ce petit coin de paradis avec vous. J'espère que vous apprécierez le calme, la proximité de la plage et le confort de la maison.</p>
+          <h3>Me contacter</h3>
+          <p>📞 <a href="tel:+33600000000">06 00 00 00 00</a></p>
+          <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
+          <div class="info-box">En cas d'urgence, n'hésitez pas à m'appeler à toute heure.</div>
+        `,
+        en: `
+          <h3>Pascal</h3>
+          <p>I love this area and wanted to share this little piece of paradise with you. I hope you'll enjoy the calm, the nearby beach, and the comfort of the house.</p>
+          <h3>Contact me</h3>
+          <p>📞 <a href="tel:+33600000000">06 00 00 00 00</a></p>
+          <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
+          <div class="info-box">In case of emergency, don't hesitate to call me at any time.</div>
+        `,
+      },
+    },
+
+    // ── ACCÈS AU LOGEMENT ──
+    {
+      icon: "🔑",
+      title: { fr: "Accès au logement", en: "Accommodation access" },
+      subtitle: { fr: "Adresse et comment arriver", en: "Address and directions" },
+      content: {
+        fr: `
+          <h3>Adresse</h3>
+          <p>📍 <strong>À compléter</strong> — <a href="https://maps.google.com" target="_blank" rel="noopener">Voir sur Google Maps</a></p>
+          <h3>Comment venir</h3>
+          <ul>
+            <li><strong>En voiture :</strong> À compléter</li>
+            <li><strong>En train :</strong> À compléter</li>
+          </ul>
+          <h3>Accès à la maison</h3>
+          <p>À compléter (code de la porte, boîte à clés, etc.)</p>
+          <div class="info-box">💡 Le code d'accès vous sera envoyé par message 2 jours avant votre arrivée.</div>
+        `,
+        en: `
+          <h3>Address</h3>
+          <p>📍 <strong>To be completed</strong> — <a href="https://maps.google.com" target="_blank" rel="noopener">View on Google Maps</a></p>
+          <h3>How to get there</h3>
+          <ul>
+            <li><strong>By car:</strong> To be completed</li>
+            <li><strong>By train:</strong> To be completed</li>
+          </ul>
+          <h3>House access</h3>
+          <p>To be completed (door code, key box, etc.)</p>
+          <div class="info-box">💡 The access code will be sent by message 2 days before your arrival.</div>
+        `,
+      },
+    },
+
+    // ── ARRIVÉE / DÉPART ──
+    {
+      icon: "🕐",
+      title: { fr: "Arrivée / Départ", en: "Check-in / Check-out" },
+      subtitle: { fr: "Horaires et consignes", en: "Times and instructions" },
+      content: {
+        fr: `
+          <div class="highlight">
+            <div class="big">16h00</div>
+            <div class="label">Arrivée à partir de</div>
+          </div>
+          <div class="highlight">
+            <div class="big">10h00</div>
+            <div class="label">Départ avant</div>
+          </div>
+          <h3>Avant votre départ</h3>
+          <ul class="checklist">
+            <li>Faire la vaisselle et la ranger</li>
+            <li>Éteindre les lumières et le chauffage</li>
+            <li>Fermer les fenêtres et volets</li>
+            <li>Sortir les poubelles</li>
+            <li>Remettre les clés dans la boîte à clés</li>
+            <li>Fermer la porte à clé</li>
+          </ul>
+        `,
+        en: `
+          <div class="highlight">
+            <div class="big">4:00 PM</div>
+            <div class="label">Check-in from</div>
+          </div>
+          <div class="highlight">
+            <div class="big">10:00 AM</div>
+            <div class="label">Check-out before</div>
+          </div>
+          <h3>Before leaving</h3>
+          <ul class="checklist">
+            <li>Wash and put away dishes</li>
+            <li>Turn off lights and heating</li>
+            <li>Close windows and shutters</li>
+            <li>Take out the trash</li>
+            <li>Put keys back in the key box</li>
+            <li>Lock the door</li>
+          </ul>
+        `,
+      },
+    },
+
+    // ── PARKING ──
+    {
+      icon: "🅿️",
+      title: { fr: "Parking", en: "Parking" },
+      subtitle: { fr: "Où se garer", en: "Where to park" },
+      content: {
+        fr: `
+          <h3>Stationnement</h3>
+          <p>À compléter (emplacement, nombre de places, gratuit/payant...)</p>
+        `,
+        en: `
+          <h3>Parking</h3>
+          <p>To be completed (location, number of spaces, free/paid...)</p>
+        `,
+      },
+    },
+
+    // ── RÈGLES ──
+    {
+      icon: "📋",
+      title: { fr: "Règlement intérieur", en: "House rules" },
+      subtitle: { fr: "Merci de respecter ces règles", en: "Please respect these rules" },
+      content: {
+        fr: `
+          <h3>Règles de la maison</h3>
+          <ul>
+            <li>🚭 Non-fumeur à l'intérieur</li>
+            <li>🐾 Animaux : à compléter (acceptés / non acceptés)</li>
+            <li>🔇 Pas de bruit après 22h</li>
+            <li>🎉 Pas de fête ni d'événement</li>
+            <li>👥 Nombre maximum d'occupants : à compléter</li>
+          </ul>
+          <div class="warn-box">⚠️ Tout manquement grave au règlement pourra entraîner la fin anticipée du séjour.</div>
+        `,
+        en: `
+          <h3>House rules</h3>
+          <ul>
+            <li>🚭 No smoking indoors</li>
+            <li>🐾 Pets: to be completed (allowed / not allowed)</li>
+            <li>🔇 No noise after 10 PM</li>
+            <li>🎉 No parties or events</li>
+            <li>👥 Maximum number of guests: to be completed</li>
+          </ul>
+          <div class="warn-box">⚠️ Serious violations of the rules may result in early termination of the stay.</div>
+        `,
+      },
+    },
+
+    // ── WI-FI ──
+    {
+      icon: "📶",
+      title: { fr: "Wi-Fi", en: "Wi-Fi" },
+      subtitle: { fr: "Réseau et mot de passe", en: "Network and password" },
+      content: {
+        fr: `
+          <h3>Connexion Wi-Fi</h3>
+          <div class="highlight">
+            <div class="label">Réseau</div>
+            <div class="big">À compléter</div>
+          </div>
+          <div class="highlight">
+            <div class="label">Mot de passe</div>
+            <div class="big">À compléter</div>
+          </div>
+        `,
+        en: `
+          <h3>Wi-Fi connection</h3>
+          <div class="highlight">
+            <div class="label">Network</div>
+            <div class="big">To be completed</div>
+          </div>
+          <div class="highlight">
+            <div class="label">Password</div>
+            <div class="big">To be completed</div>
+          </div>
+        `,
+      },
+    },
+
+    // ── CUISINE ──
+    {
+      icon: "🍳",
+      title: { fr: "Cuisine", en: "Kitchen" },
+      subtitle: { fr: "Équipements et consignes", en: "Equipment and instructions" },
+      content: {
+        fr: `
+          <h3>Équipements disponibles</h3>
+          <ul>
+            <li>Réfrigérateur / congélateur</li>
+            <li>Four et micro-ondes</li>
+            <li>Plaques de cuisson</li>
+            <li>Lave-vaisselle</li>
+            <li>Cafetière / bouilloire</li>
+            <li>Grille-pain</li>
+            <li>Vaisselle et ustensiles pour X personnes</li>
+          </ul>
+          <div class="info-box">💡 Merci de laisser la cuisine propre et rangée à votre départ.</div>
+        `,
+        en: `
+          <h3>Available equipment</h3>
+          <ul>
+            <li>Fridge / freezer</li>
+            <li>Oven and microwave</li>
+            <li>Stovetop</li>
+            <li>Dishwasher</li>
+            <li>Coffee maker / kettle</li>
+            <li>Toaster</li>
+            <li>Dishes and utensils for X guests</li>
+          </ul>
+          <div class="info-box">💡 Please leave the kitchen clean and tidy when you leave.</div>
+        `,
+      },
+    },
+
+    // ── LINGE ──
+    {
+      icon: "🛏️",
+      title: { fr: "Linge", en: "Linen" },
+      subtitle: { fr: "Draps, serviettes et lave-linge", en: "Sheets, towels and laundry" },
+      content: {
+        fr: `
+          <h3>Linge fourni</h3>
+          <ul>
+            <li>Draps et taies d'oreiller</li>
+            <li>Serviettes de bain</li>
+            <li>Torchons de cuisine</li>
+          </ul>
+          <h3>Lave-linge</h3>
+          <p>À compléter (emplacement, mode d'utilisation, lessive fournie ou non...)</p>
+          <div class="warn-box">⚠️ Merci de ne pas utiliser les serviettes blanches comme tapis de plage.</div>
+        `,
+        en: `
+          <h3>Linen provided</h3>
+          <ul>
+            <li>Sheets and pillowcases</li>
+            <li>Bath towels</li>
+            <li>Kitchen towels</li>
+          </ul>
+          <h3>Washing machine</h3>
+          <p>To be completed (location, how to use, detergent provided or not...)</p>
+          <div class="warn-box">⚠️ Please do not use the white towels as beach towels.</div>
+        `,
+      },
+    },
+
+    // ── CHAUFFAGE / CLIM ──
+    {
+      icon: "🌡️",
+      title: { fr: "Chauffage / Climatisation", en: "Heating / Air conditioning" },
+      subtitle: { fr: "Comment régler la température", en: "How to adjust temperature" },
+      content: {
+        fr: `
+          <h3>Chauffage</h3>
+          <p>À compléter (type de chauffage, thermostat, consignes...)</p>
+          <h3>Climatisation</h3>
+          <p>À compléter (si disponible, comment l'utiliser...)</p>
+          <div class="info-box">💡 Pensez à éteindre le chauffage/clim quand vous quittez la maison.</div>
+        `,
+        en: `
+          <h3>Heating</h3>
+          <p>To be completed (type of heating, thermostat, instructions...)</p>
+          <h3>Air conditioning</h3>
+          <p>To be completed (if available, how to use it...)</p>
+          <div class="info-box">💡 Please turn off heating/AC when you leave the house.</div>
+        `,
+      },
+    },
+
+    // ── POUBELLES / TRI ──
+    {
+      icon: "♻️",
+      title: { fr: "Poubelles et tri", en: "Bins and recycling" },
+      subtitle: { fr: "Où et comment trier", en: "Where and how to sort" },
+      content: {
+        fr: `
+          <h3>Tri sélectif</h3>
+          <p>À compléter (emplacement des poubelles, jours de collecte, consignes de tri...)</p>
+        `,
+        en: `
+          <h3>Recycling</h3>
+          <p>To be completed (bin locations, collection days, sorting instructions...)</p>
+        `,
+      },
+    },
+
+    // ── AUX ALENTOURS ──
+    {
+      icon: "🗺️",
+      title: { fr: "Aux alentours", en: "Around the area" },
+      subtitle: { fr: "Nos recommandations", en: "Our recommendations" },
+      content: {
+        fr: `
+          <h3>Plages</h3>
+          <p>À compléter</p>
+          <h3>Restaurants</h3>
+          <p>À compléter</p>
+          <h3>Commerces</h3>
+          <p>À compléter (supermarché, boulangerie, pharmacie...)</p>
+          <h3>Activités</h3>
+          <p>À compléter (randonnées, sports nautiques, visites...)</p>
+        `,
+        en: `
+          <h3>Beaches</h3>
+          <p>To be completed</p>
+          <h3>Restaurants</h3>
+          <p>To be completed</p>
+          <h3>Shops</h3>
+          <p>To be completed (supermarket, bakery, pharmacy...)</p>
+          <h3>Activities</h3>
+          <p>To be completed (hiking, water sports, sightseeing...)</p>
+        `,
+      },
+    },
+
+    // ── NUMÉROS UTILES ──
+    {
+      icon: "🆘",
+      title: { fr: "Numéros utiles", en: "Useful numbers" },
+      subtitle: { fr: "Urgences et services", en: "Emergency and services" },
+      content: {
+        fr: `
+          <h3>Urgences</h3>
+          <ul>
+            <li>🚒 Pompiers : <a href="tel:18">18</a></li>
+            <li>🚑 SAMU : <a href="tel:15">15</a></li>
+            <li>👮 Police : <a href="tel:17">17</a></li>
+            <li>📞 Numéro européen : <a href="tel:112">112</a></li>
+          </ul>
+          <h3>Services locaux</h3>
+          <ul>
+            <li>🏥 Médecin le plus proche : à compléter</li>
+            <li>💊 Pharmacie : à compléter</li>
+            <li>🔧 Dépannage / urgence logement : à compléter</li>
+          </ul>
+        `,
+        en: `
+          <h3>Emergency</h3>
+          <ul>
+            <li>🚒 Fire department: <a href="tel:18">18</a></li>
+            <li>🚑 Ambulance: <a href="tel:15">15</a></li>
+            <li>👮 Police: <a href="tel:17">17</a></li>
+            <li>📞 European number: <a href="tel:112">112</a></li>
+          </ul>
+          <h3>Local services</h3>
+          <ul>
+            <li>🏥 Nearest doctor: to be completed</li>
+            <li>💊 Pharmacy: to be completed</li>
+            <li>🔧 Emergency maintenance: to be completed</li>
+          </ul>
+        `,
+      },
+    },
+
+  ],
+};
+
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║  🚫 NE PAS MODIFIER EN DESSOUS — moteur de rendu              ║
+// ╚══════════════════════════════════════════════════════════════════╝
+
+let currentLang = 'fr';
+
+function t(obj) {
+  if (typeof obj === 'string') return obj;
+  return obj[currentLang] || obj.fr || '';
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.includes(lang.toUpperCase()));
+  });
+  renderHome();
+}
+
+function renderHome() {
+  document.getElementById('hero-title').textContent = CONFIG.titre;
+  document.getElementById('hero-tagline').textContent = t(CONFIG.tagline);
+  if (CONFIG.heroImage) {
+    document.getElementById('hero-bg').style.backgroundImage = `url('${CONFIG.heroImage}')`;
+  }
+
+  const msg = document.getElementById('welcome-msg');
+  msg.innerHTML = `<span class="host-initials">${CONFIG.hostInitials}</span> ${t(CONFIG.bienvenue).replace(/\n/g, '<br>')}`;
+
+  document.getElementById('guide-title').textContent = t(CONFIG.guideTitle);
+  document.getElementById('footer').textContent = t(CONFIG.footer);
+
+  const grid = document.getElementById('nav-grid');
+  grid.innerHTML = CONFIG.sections.map((s, i) => `
+    <a class="nav-card" onclick="openPage(${i})">
+      <div class="card-icon">${s.icon}</div>
+      <div class="card-text">
+        <div class="card-title">${t(s.title)}</div>
+        <div class="card-subtitle">${t(s.subtitle)}</div>
+      </div>
+      <div class="card-arrow">›</div>
+    </a>
+  `).join('');
+
+  document.title = `${CONFIG.titre} — ${t(CONFIG.guideTitle)}`;
+}
+
+function openPage(index) {
+  const section = CONFIG.sections[index];
+  document.getElementById('home-view').classList.add('hidden');
+  const page = document.getElementById('page-detail');
+  page.classList.add('active');
+  document.getElementById('page-icon').textContent = section.icon;
+  document.getElementById('page-title').textContent = t(section.title);
+  document.getElementById('page-body').innerHTML = t(section.content);
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  document.getElementById('page-detail').classList.remove('active');
+  document.getElementById('home-view').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+document.addEventListener('DOMContentLoaded', () => renderHome());
+</script>
+</body>
+</html>
