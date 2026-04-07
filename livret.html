@@ -192,8 +192,10 @@
     <div class="hero-bg" id="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('fr')">🇫🇷 FR</button>
-      <button class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
+      <button class="lang-btn active" onclick="setLang('fr')">🇫🇷</button>
+      <button class="lang-btn" onclick="setLang('en')">🇬🇧</button>
+      <button class="lang-btn" onclick="setLang('de')">🇩🇪</button>
+      <button class="lang-btn" onclick="setLang('es')">🇪🇸</button>
     </div>
     <div class="hero-content">
       <h1 id="hero-title"></h1>
@@ -223,7 +225,7 @@
 // ╔══════════════════════════════════════════════════════════════════╗
 // ║  📝 CONFIGURATION DU LIVRET D'ACCUEIL                          ║
 // ║  Pascal : modifie les textes ci-dessous pour personnaliser !    ║
-// ║  Chaque section a une version FR et EN.                         ║
+// ║  Chaque section a une version FR, EN, DE et ES.                 ║
 // ╚══════════════════════════════════════════════════════════════════╝
 
 const CONFIG = {
@@ -233,6 +235,8 @@ const CONFIG = {
   tagline: {
     fr: "Maison chaleureuse sur la dune",
     en: "Warm house on the dune",
+    de: "Gemütliches Haus auf der Düne",
+    es: "Casa acogedora sobre la duna",
   },
 
   // ── Image de fond hero (URL ou "" pour dégradé seul) ──
@@ -242,6 +246,8 @@ const CONFIG = {
   bienvenue: {
     fr: `Bienvenue à "Ty an aod" !\n\nNous espérons que vous passerez un séjour mémorable et que vous repartirez avec de merveilleux souvenirs.`,
     en: `Welcome to "Ty an aod"!\n\nWe hope you have a memorable stay and leave with wonderful memories.`,
+    de: `Willkommen in "Ty an aod"!\n\nWir hoffen, Sie haben einen unvergesslichen Aufenthalt und nehmen wunderbare Erinnerungen mit.`,
+    es: `¡Bienvenido a "Ty an aod"!\n\nEsperamos que disfrute de una estancia memorable y se lleve recuerdos maravillosos.`,
   },
 
   // ── Initiales de l'hôte (affiché dans le message) ──
@@ -251,12 +257,16 @@ const CONFIG = {
   guideTitle: {
     fr: "Livret d'accueil",
     en: "Welcome guide",
+    de: "Willkommensführer",
+    es: "Guía de bienvenida",
   },
 
   // ── Pied de page ──
   footer: {
     fr: "Ty an aod — Livret d'accueil digital",
     en: "Ty an aod — Digital welcome guide",
+    de: "Ty an aod — Digitaler Willkommensführer",
+    es: "Ty an aod — Guía de bienvenida digital",
   },
 
   // ═══════════════════════════════════════════════
@@ -267,8 +277,8 @@ const CONFIG = {
     // ── VOTRE HÔTE ──
     {
       icon: "👤",
-      title: { fr: "Votre hôte", en: "Your host" },
-      subtitle: { fr: "Qui suis-je", en: "About me" },
+      title: { fr: "Votre hôte", en: "Your host", de: "Ihr Gastgeber", es: "Su anfitrión" },
+      subtitle: { fr: "Qui suis-je", en: "About me", de: "Über mich", es: "Sobre mí" },
       content: {
         fr: `
           <h3>Pascal</h3>
@@ -286,14 +296,30 @@ const CONFIG = {
           <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
           <div class="info-box">In case of emergency, don't hesitate to call me at any time.</div>
         `,
+        de: `
+          <h3>Pascal</h3>
+          <p>Ich liebe diese Gegend und möchte dieses kleine Paradies mit Ihnen teilen. Ich hoffe, Sie genießen die Ruhe, die Nähe zum Strand und den Komfort des Hauses.</p>
+          <h3>Kontakt</h3>
+          <p>📞 <a href="tel:+33600000000">06 00 00 00 00</a></p>
+          <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
+          <div class="info-box">Im Notfall zögern Sie nicht, mich jederzeit anzurufen.</div>
+        `,
+        es: `
+          <h3>Pascal</h3>
+          <p>Apasionado por esta región, quise compartir este pequeño rincón de paraíso con ustedes. Espero que disfruten de la calma, la cercanía de la playa y la comodidad de la casa.</p>
+          <h3>Contacto</h3>
+          <p>📞 <a href="tel:+33600000000">06 00 00 00 00</a></p>
+          <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
+          <div class="info-box">En caso de emergencia, no dude en llamarme a cualquier hora.</div>
+        `,
       },
     },
 
     // ── ACCÈS AU LOGEMENT ──
     {
       icon: "🔑",
-      title: { fr: "Accès au logement", en: "Accommodation access" },
-      subtitle: { fr: "Adresse et comment arriver", en: "Address and directions" },
+      title: { fr: "Accès au logement", en: "Accommodation access", de: "Zugang zur Unterkunft", es: "Acceso al alojamiento" },
+      subtitle: { fr: "Adresse et comment arriver", en: "Address and directions", de: "Adresse und Anfahrt", es: "Dirección y cómo llegar" },
       content: {
         fr: `
           <h3>Adresse</h3>
@@ -319,14 +345,38 @@ const CONFIG = {
           <p>To be completed (door code, key box, etc.)</p>
           <div class="info-box">💡 The access code will be sent by message 2 days before your arrival.</div>
         `,
+        de: `
+          <h3>Adresse</h3>
+          <p>📍 <strong>Noch auszufüllen</strong> — <a href="https://maps.google.com" target="_blank" rel="noopener">Auf Google Maps ansehen</a></p>
+          <h3>Anfahrt</h3>
+          <ul>
+            <li><strong>Mit dem Auto:</strong> Noch auszufüllen</li>
+            <li><strong>Mit dem Zug:</strong> Noch auszufüllen</li>
+          </ul>
+          <h3>Zugang zum Haus</h3>
+          <p>Noch auszufüllen (Türcode, Schlüsselbox, usw.)</p>
+          <div class="info-box">💡 Der Zugangscode wird Ihnen 2 Tage vor Ihrer Ankunft per Nachricht zugeschickt.</div>
+        `,
+        es: `
+          <h3>Dirección</h3>
+          <p>📍 <strong>Por completar</strong> — <a href="https://maps.google.com" target="_blank" rel="noopener">Ver en Google Maps</a></p>
+          <h3>Cómo llegar</h3>
+          <ul>
+            <li><strong>En coche:</strong> Por completar</li>
+            <li><strong>En tren:</strong> Por completar</li>
+          </ul>
+          <h3>Acceso a la casa</h3>
+          <p>Por completar (código de la puerta, caja de llaves, etc.)</p>
+          <div class="info-box">💡 El código de acceso se le enviará por mensaje 2 días antes de su llegada.</div>
+        `,
       },
     },
 
     // ── ARRIVÉE / DÉPART ──
     {
       icon: "🕐",
-      title: { fr: "Arrivée / Départ", en: "Check-in / Check-out" },
-      subtitle: { fr: "Horaires et consignes", en: "Times and instructions" },
+      title: { fr: "Arrivée / Départ", en: "Check-in / Check-out", de: "An- / Abreise", es: "Llegada / Salida" },
+      subtitle: { fr: "Horaires et consignes", en: "Times and instructions", de: "Zeiten und Hinweise", es: "Horarios e instrucciones" },
       content: {
         fr: `
           <div class="highlight">
@@ -366,14 +416,52 @@ const CONFIG = {
             <li>Lock the door</li>
           </ul>
         `,
+        de: `
+          <div class="highlight">
+            <div class="big">16:00</div>
+            <div class="label">Anreise ab</div>
+          </div>
+          <div class="highlight">
+            <div class="big">10:00</div>
+            <div class="label">Abreise vor</div>
+          </div>
+          <h3>Vor der Abreise</h3>
+          <ul class="checklist">
+            <li>Geschirr spülen und einräumen</li>
+            <li>Lichter und Heizung ausschalten</li>
+            <li>Fenster und Rollläden schließen</li>
+            <li>Müll rausbringen</li>
+            <li>Schlüssel in die Schlüsselbox zurücklegen</li>
+            <li>Tür abschließen</li>
+          </ul>
+        `,
+        es: `
+          <div class="highlight">
+            <div class="big">16:00</div>
+            <div class="label">Llegada a partir de</div>
+          </div>
+          <div class="highlight">
+            <div class="big">10:00</div>
+            <div class="label">Salida antes de</div>
+          </div>
+          <h3>Antes de salir</h3>
+          <ul class="checklist">
+            <li>Lavar y guardar los platos</li>
+            <li>Apagar luces y calefacción</li>
+            <li>Cerrar ventanas y persianas</li>
+            <li>Sacar la basura</li>
+            <li>Devolver las llaves a la caja de llaves</li>
+            <li>Cerrar la puerta con llave</li>
+          </ul>
+        `,
       },
     },
 
     // ── PARKING ──
     {
       icon: "🅿️",
-      title: { fr: "Parking", en: "Parking" },
-      subtitle: { fr: "Où se garer", en: "Where to park" },
+      title: { fr: "Parking", en: "Parking", de: "Parken", es: "Aparcamiento" },
+      subtitle: { fr: "Où se garer", en: "Where to park", de: "Wo parken", es: "Dónde aparcar" },
       content: {
         fr: `
           <h3>Stationnement</h3>
@@ -383,14 +471,22 @@ const CONFIG = {
           <h3>Parking</h3>
           <p>To be completed (location, number of spaces, free/paid...)</p>
         `,
+        de: `
+          <h3>Parken</h3>
+          <p>Noch auszufüllen (Standort, Anzahl Plätze, kostenlos/kostenpflichtig...)</p>
+        `,
+        es: `
+          <h3>Aparcamiento</h3>
+          <p>Por completar (ubicación, número de plazas, gratuito/de pago...)</p>
+        `,
       },
     },
 
     // ── RÈGLES ──
     {
       icon: "📋",
-      title: { fr: "Règlement intérieur", en: "House rules" },
-      subtitle: { fr: "Merci de respecter ces règles", en: "Please respect these rules" },
+      title: { fr: "Règlement intérieur", en: "House rules", de: "Hausordnung", es: "Normas de la casa" },
+      subtitle: { fr: "Merci de respecter ces règles", en: "Please respect these rules", de: "Bitte beachten Sie diese Regeln", es: "Por favor respete estas normas" },
       content: {
         fr: `
           <h3>Règles de la maison</h3>
@@ -414,14 +510,36 @@ const CONFIG = {
           </ul>
           <div class="warn-box">⚠️ Serious violations of the rules may result in early termination of the stay.</div>
         `,
+        de: `
+          <h3>Hausordnung</h3>
+          <ul>
+            <li>🚭 Rauchen im Haus verboten</li>
+            <li>🐾 Haustiere: Noch auszufüllen (erlaubt / nicht erlaubt)</li>
+            <li>🔇 Kein Lärm nach 22 Uhr</li>
+            <li>🎉 Keine Partys oder Veranstaltungen</li>
+            <li>👥 Maximale Gästeanzahl: Noch auszufüllen</li>
+          </ul>
+          <div class="warn-box">⚠️ Schwere Verstöße gegen die Hausordnung können zur vorzeitigen Beendigung des Aufenthalts führen.</div>
+        `,
+        es: `
+          <h3>Normas de la casa</h3>
+          <ul>
+            <li>🚭 Prohibido fumar en el interior</li>
+            <li>🐾 Mascotas: Por completar (permitidas / no permitidas)</li>
+            <li>🔇 No hacer ruido después de las 22h</li>
+            <li>🎉 No se permiten fiestas ni eventos</li>
+            <li>👥 Número máximo de ocupantes: Por completar</li>
+          </ul>
+          <div class="warn-box">⚠️ El incumplimiento grave de las normas puede suponer la finalización anticipada de la estancia.</div>
+        `,
       },
     },
 
     // ── WI-FI ──
     {
       icon: "📶",
-      title: { fr: "Wi-Fi", en: "Wi-Fi" },
-      subtitle: { fr: "Réseau et mot de passe", en: "Network and password" },
+      title: { fr: "Wi-Fi", en: "Wi-Fi", de: "WLAN", es: "Wi-Fi" },
+      subtitle: { fr: "Réseau et mot de passe", en: "Network and password", de: "Netzwerk und Passwort", es: "Red y contraseña" },
       content: {
         fr: `
           <h3>Connexion Wi-Fi</h3>
@@ -445,14 +563,36 @@ const CONFIG = {
             <div class="big">To be completed</div>
           </div>
         `,
+        de: `
+          <h3>WLAN-Verbindung</h3>
+          <div class="highlight">
+            <div class="label">Netzwerk</div>
+            <div class="big">Noch auszufüllen</div>
+          </div>
+          <div class="highlight">
+            <div class="label">Passwort</div>
+            <div class="big">Noch auszufüllen</div>
+          </div>
+        `,
+        es: `
+          <h3>Conexión Wi-Fi</h3>
+          <div class="highlight">
+            <div class="label">Red</div>
+            <div class="big">Por completar</div>
+          </div>
+          <div class="highlight">
+            <div class="label">Contraseña</div>
+            <div class="big">Por completar</div>
+          </div>
+        `,
       },
     },
 
     // ── CUISINE ──
     {
       icon: "🍳",
-      title: { fr: "Cuisine", en: "Kitchen" },
-      subtitle: { fr: "Équipements et consignes", en: "Equipment and instructions" },
+      title: { fr: "Cuisine", en: "Kitchen", de: "Küche", es: "Cocina" },
+      subtitle: { fr: "Équipements et consignes", en: "Equipment and instructions", de: "Ausstattung und Hinweise", es: "Equipamiento e instrucciones" },
       content: {
         fr: `
           <h3>Équipements disponibles</h3>
@@ -480,14 +620,40 @@ const CONFIG = {
           </ul>
           <div class="info-box">💡 Please leave the kitchen clean and tidy when you leave.</div>
         `,
+        de: `
+          <h3>Verfügbare Ausstattung</h3>
+          <ul>
+            <li>Kühlschrank / Gefrierschrank</li>
+            <li>Backofen und Mikrowelle</li>
+            <li>Kochplatten</li>
+            <li>Geschirrspüler</li>
+            <li>Kaffeemaschine / Wasserkocher</li>
+            <li>Toaster</li>
+            <li>Geschirr und Besteck für X Personen</li>
+          </ul>
+          <div class="info-box">💡 Bitte hinterlassen Sie die Küche sauber und aufgeräumt.</div>
+        `,
+        es: `
+          <h3>Equipamiento disponible</h3>
+          <ul>
+            <li>Nevera / congelador</li>
+            <li>Horno y microondas</li>
+            <li>Vitrocerámica</li>
+            <li>Lavavajillas</li>
+            <li>Cafetera / hervidor</li>
+            <li>Tostadora</li>
+            <li>Vajilla y utensilios para X personas</li>
+          </ul>
+          <div class="info-box">💡 Por favor, deje la cocina limpia y ordenada antes de irse.</div>
+        `,
       },
     },
 
     // ── LINGE ──
     {
       icon: "🛏️",
-      title: { fr: "Linge", en: "Linen" },
-      subtitle: { fr: "Draps, serviettes et lave-linge", en: "Sheets, towels and laundry" },
+      title: { fr: "Linge", en: "Linen", de: "Wäsche", es: "Ropa de cama" },
+      subtitle: { fr: "Draps, serviettes et lave-linge", en: "Sheets, towels and laundry", de: "Bettwäsche, Handtücher und Waschmaschine", es: "Sábanas, toallas y lavadora" },
       content: {
         fr: `
           <h3>Linge fourni</h3>
@@ -511,14 +677,36 @@ const CONFIG = {
           <p>To be completed (location, how to use, detergent provided or not...)</p>
           <div class="warn-box">⚠️ Please do not use the white towels as beach towels.</div>
         `,
+        de: `
+          <h3>Bereitgestellte Wäsche</h3>
+          <ul>
+            <li>Bettwäsche und Kissenbezüge</li>
+            <li>Badetücher</li>
+            <li>Geschirrtücher</li>
+          </ul>
+          <h3>Waschmaschine</h3>
+          <p>Noch auszufüllen (Standort, Bedienung, Waschmittel vorhanden oder nicht...)</p>
+          <div class="warn-box">⚠️ Bitte verwenden Sie die weißen Handtücher nicht als Strandtücher.</div>
+        `,
+        es: `
+          <h3>Ropa de cama incluida</h3>
+          <ul>
+            <li>Sábanas y fundas de almohada</li>
+            <li>Toallas de baño</li>
+            <li>Paños de cocina</li>
+          </ul>
+          <h3>Lavadora</h3>
+          <p>Por completar (ubicación, modo de uso, detergente incluido o no...)</p>
+          <div class="warn-box">⚠️ Por favor, no use las toallas blancas como toallas de playa.</div>
+        `,
       },
     },
 
     // ── CHAUFFAGE / CLIM ──
     {
       icon: "🌡️",
-      title: { fr: "Chauffage / Climatisation", en: "Heating / Air conditioning" },
-      subtitle: { fr: "Comment régler la température", en: "How to adjust temperature" },
+      title: { fr: "Chauffage / Climatisation", en: "Heating / Air conditioning", de: "Heizung / Klimaanlage", es: "Calefacción / Aire acondicionado" },
+      subtitle: { fr: "Comment régler la température", en: "How to adjust temperature", de: "Temperatur einstellen", es: "Cómo ajustar la temperatura" },
       content: {
         fr: `
           <h3>Chauffage</h3>
@@ -534,14 +722,28 @@ const CONFIG = {
           <p>To be completed (if available, how to use it...)</p>
           <div class="info-box">💡 Please turn off heating/AC when you leave the house.</div>
         `,
+        de: `
+          <h3>Heizung</h3>
+          <p>Noch auszufüllen (Art der Heizung, Thermostat, Hinweise...)</p>
+          <h3>Klimaanlage</h3>
+          <p>Noch auszufüllen (falls vorhanden, Bedienung...)</p>
+          <div class="info-box">💡 Bitte schalten Sie Heizung/Klimaanlage aus, wenn Sie das Haus verlassen.</div>
+        `,
+        es: `
+          <h3>Calefacción</h3>
+          <p>Por completar (tipo de calefacción, termostato, instrucciones...)</p>
+          <h3>Aire acondicionado</h3>
+          <p>Por completar (si disponible, cómo usarlo...)</p>
+          <div class="info-box">💡 Por favor, apague la calefacción/aire acondicionado al salir de la casa.</div>
+        `,
       },
     },
 
     // ── POUBELLES / TRI ──
     {
       icon: "♻️",
-      title: { fr: "Poubelles et tri", en: "Bins and recycling" },
-      subtitle: { fr: "Où et comment trier", en: "Where and how to sort" },
+      title: { fr: "Poubelles et tri", en: "Bins and recycling", de: "Müll und Recycling", es: "Basura y reciclaje" },
+      subtitle: { fr: "Où et comment trier", en: "Where and how to sort", de: "Wo und wie trennen", es: "Dónde y cómo reciclar" },
       content: {
         fr: `
           <h3>Tri sélectif</h3>
@@ -551,14 +753,22 @@ const CONFIG = {
           <h3>Recycling</h3>
           <p>To be completed (bin locations, collection days, sorting instructions...)</p>
         `,
+        de: `
+          <h3>Mülltrennung</h3>
+          <p>Noch auszufüllen (Standort der Mülltonnen, Abholtermine, Trennhinweise...)</p>
+        `,
+        es: `
+          <h3>Reciclaje</h3>
+          <p>Por completar (ubicación de los contenedores, días de recogida, instrucciones de reciclaje...)</p>
+        `,
       },
     },
 
     // ── AUX ALENTOURS ──
     {
       icon: "🗺️",
-      title: { fr: "Aux alentours", en: "Around the area" },
-      subtitle: { fr: "Nos recommandations", en: "Our recommendations" },
+      title: { fr: "Aux alentours", en: "Around the area", de: "In der Umgebung", es: "Alrededores" },
+      subtitle: { fr: "Nos recommandations", en: "Our recommendations", de: "Unsere Empfehlungen", es: "Nuestras recomendaciones" },
       content: {
         fr: `
           <h3>Plages</h3>
@@ -580,14 +790,34 @@ const CONFIG = {
           <h3>Activities</h3>
           <p>To be completed (hiking, water sports, sightseeing...)</p>
         `,
+        de: `
+          <h3>Strände</h3>
+          <p>Noch auszufüllen</p>
+          <h3>Restaurants</h3>
+          <p>Noch auszufüllen</p>
+          <h3>Geschäfte</h3>
+          <p>Noch auszufüllen (Supermarkt, Bäckerei, Apotheke...)</p>
+          <h3>Aktivitäten</h3>
+          <p>Noch auszufüllen (Wanderungen, Wassersport, Besichtigungen...)</p>
+        `,
+        es: `
+          <h3>Playas</h3>
+          <p>Por completar</p>
+          <h3>Restaurantes</h3>
+          <p>Por completar</p>
+          <h3>Comercios</h3>
+          <p>Por completar (supermercado, panadería, farmacia...)</p>
+          <h3>Actividades</h3>
+          <p>Por completar (senderismo, deportes acuáticos, visitas...)</p>
+        `,
       },
     },
 
     // ── NUMÉROS UTILES ──
     {
       icon: "🆘",
-      title: { fr: "Numéros utiles", en: "Useful numbers" },
-      subtitle: { fr: "Urgences et services", en: "Emergency and services" },
+      title: { fr: "Numéros utiles", en: "Useful numbers", de: "Wichtige Nummern", es: "Números útiles" },
+      subtitle: { fr: "Urgences et services", en: "Emergency and services", de: "Notfälle und Dienste", es: "Urgencias y servicios" },
       content: {
         fr: `
           <h3>Urgences</h3>
@@ -619,6 +849,36 @@ const CONFIG = {
             <li>🔧 Emergency maintenance: to be completed</li>
           </ul>
         `,
+        de: `
+          <h3>Notfälle</h3>
+          <ul>
+            <li>🚒 Feuerwehr: <a href="tel:18">18</a></li>
+            <li>🚑 Rettungsdienst: <a href="tel:15">15</a></li>
+            <li>👮 Polizei: <a href="tel:17">17</a></li>
+            <li>📞 Europäische Notrufnummer: <a href="tel:112">112</a></li>
+          </ul>
+          <h3>Lokale Dienste</h3>
+          <ul>
+            <li>🏥 Nächster Arzt: Noch auszufüllen</li>
+            <li>💊 Apotheke: Noch auszufüllen</li>
+            <li>🔧 Notfall-Reparatur: Noch auszufüllen</li>
+          </ul>
+        `,
+        es: `
+          <h3>Urgencias</h3>
+          <ul>
+            <li>🚒 Bomberos: <a href="tel:18">18</a></li>
+            <li>🚑 Ambulancia: <a href="tel:15">15</a></li>
+            <li>👮 Policía: <a href="tel:17">17</a></li>
+            <li>📞 Número europeo: <a href="tel:112">112</a></li>
+          </ul>
+          <h3>Servicios locales</h3>
+          <ul>
+            <li>🏥 Médico más cercano: Por completar</li>
+            <li>💊 Farmacia: Por completar</li>
+            <li>🔧 Reparaciones de emergencia: Por completar</li>
+          </ul>
+        `,
       },
     },
 
@@ -638,8 +898,9 @@ function t(obj) {
 
 function setLang(lang) {
   currentLang = lang;
+  const flags = { fr: '🇫🇷', en: '🇬🇧', de: '🇩🇪', es: '🇪🇸' };
   document.querySelectorAll('.lang-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent.includes(lang.toUpperCase()));
+    b.classList.toggle('active', b.textContent.includes(flags[lang]));
   });
   renderHome();
 }
