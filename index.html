@@ -18,7 +18,7 @@
     --shadow: 0 4px 20px rgba(0,0,0,0.08);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; text-align: center; }
   
   /* HERO */
   .hero {
@@ -102,18 +102,20 @@
     width: 100%; height: auto; border-radius: var(--radius);
     box-shadow: var(--shadow); display: block; cursor: pointer;
   }
-  .thumbnails-wrapper {
-    position: relative;
-    display: flex; align-items: center; gap: 1rem;
-  }
   .arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     background: var(--primary); color: #fff;
     border: none; width: 40px; height: 40px;
     border-radius: 50%; cursor: pointer;
     font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
     transition: background .2s;
     flex-shrink: 0;
+    z-index: 2;
   }
+  .prev-btn { left: 10px; }
+  .next-btn { right: 10px; }
   .arrow-btn:hover { background: var(--primary-light); }
   .thumbnails-container {
     display: flex; gap: 0.8rem; overflow-x: auto; overflow-y: hidden;
@@ -234,8 +236,8 @@
 
 <nav class="nav">
   <a href="#photos">Photos</a>
-  <a href="#equipements">Équipements</a>
-  <a href="#livret">Livret d'accueil</a>
+  <a href="#equipements">Prestations</a>
+  <a href="#cuisine">Cuisine</a>
   <a href="#contact">Contact</a>
 </nav>
 
@@ -251,40 +253,24 @@
   <h2>Photos</h2>
   <div class="gallery-container" id="gallery-container">
     <div class="main-photo-wrapper">
+      <button class="arrow-btn prev-btn" id="prev-btn" onclick="changeMainPhoto('prev')">←</button>
       <img class="main-photo" id="main-photo" src="" alt="Photo principale du logement" onclick="openLightbox(this.src)">
+      <button class="arrow-btn next-btn" id="next-btn" onclick="changeMainPhoto('next')">→</button>
     </div>
     <div class="thumbnails-wrapper">
-      <button class="arrow-btn" id="prev-btn" onclick="scrollThumbnails('left')">←</button>
       <div class="thumbnails-container" id="thumbnails-container"></div>
-      <button class="arrow-btn" id="next-btn" onclick="scrollThumbnails('right')">→</button>
     </div>
   </div>
 </section>
 
 <section id="equipements">
-  <h2>Équipements</h2>
+  <h2>Prestations</h2>
   <div class="equip-grid" id="equip-grid"></div>
 </section>
 
-<!--
-<section id="tarifs">
-  <h2>Tarifs</h2>
-  <div class="tarif-cards" id="tarif-cards"></div>
-</section>
-
-<section id="localisation">
-  <h2>Localisation</h2>
-  <div class="location-info" id="location-info"></div>
-</section>
--->
-
-<section id="livret">
-  <h2>Livret d'accueil</h2>
-  <div style="background:#fff;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,0.08);padding:2rem;text-align:center;max-width:360px;">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fgitetyanaod.fr%2Flivret.html" alt="QR Code — Livret d'accueil" width="200" height="200" style="border-radius:8px;">
-    <p style="margin-top:1rem;font-size:.95rem;color:#636e72;">Scannez pour accéder au livret d'accueil</p>
-    <a href="livret.html" style="display:inline-block;margin-top:.8rem;background:#2c5f7c;color:#fff;padding:.6rem 1.5rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;">Ouvrir le livret →</a>
-  </div>
+<section id="cuisine">
+  <h2>Cuisine</h2>
+  <div class="equip-grid" id="cuisine-grid"></div>
 </section>
 
 <section id="contact">
@@ -303,8 +289,8 @@
 const CONFIG = {
 
   // ── Titre & accroche ──
-  titre: "Ty an aod",
-  sousTitre: "Maison chaleureuse sur la dune",
+  titre: "Gîte Ty an aod",
+  sousTitre: "Maison avec vue mer à quelques pas de la plage\n\nA Portsall sur la dune de Tréompan, cette charmante maison neuve se situe à quelques pas d’une grande plage de sable fin et sur le parcours du GR34. L’emplacement est idéal pour découvrir les nombreuses activités et lieux de loisirs et de randonnées, dans le pays d’Iroise et des Abers. Elle se trouve à 5 mn du port de Portsall, du centre-ville de Ploudalmézeau et des commerces. \nUn livret d’accueil est à votre disposition à votre arrivée, où vous trouverez toutes les informations nécessaires pour passer un merveilleux séjour.\n\nL’hébergement comprend un petit jardin sur terrain clos, 2 places de stationnement privatives et sécurisées, sous carport, avec prises spécialisées pour le rechargement des véhicules (en option). \n\nLes pièces de vie de la maison disposent d’une belle vue mer et ouvrent sur une terrasse plein sud, aménagée pour profiter des repas en plein air. \n\nL’hébergement comporte :\n- 2 chambres à lits queen size et 1 chambre avec 3 lits, dont 2 superposés (linge de maison et de toilette fourni) avec grands placards de rangement\n- 2 salles de douche \n- 3 WC séparés. \n\nNous mettons gratuitement à votre disposition le prêt de 2 vélos adultes et des équipements pour bébé (lit pliant, chaise haute, poussette, baignoire de bain).",
   descriptionHero: "Loué dans son intégralité, l'espace se divise aisément en deux parties disposant chacune d'une télévision, d'une cuisine/séjour, permettant ainsi de profiter d'un espace de travail séparé ou d'une suite parentale indépendante",
 
   badge: "Meublé de tourisme ****",
@@ -352,18 +338,41 @@ L'appartement a été entièrement rénové en 2024 avec des matériaux de quali
 
   // ── Équipements (icône + nom) ──
   equipements: [
-    { icon: "📶", nom: "Wi-Fi haut débit" },
-    { icon: "📺", nom: "TV écran plat" },
-    { icon: "🍳", nom: "Cuisine équipée" },
+    { icon: "📶", nom: "WIFI" },
+    { icon: "📺", nom: "2 TV connectées écran plat" },
+    { icon: "🔊", nom: "Enceinte connectée" },
     { icon: "🧺", nom: "Lave-linge" },
-    { icon: "❄️", nom: "Climatisation" },
-    { icon: "🅿️", nom: "Parking gratuit" },
-    { icon: "🛁", nom: "Salle de bain" },
-    { icon: "☕", nom: "Machine à café" },
+    { icon: "🌀", nom: "Sèche-linge" },
+    { icon: "🌀", nom: "Ventilateur de plafond" },
     { icon: "🔑", nom: "Entrée autonome" },
-    { icon: "🧹", nom: "Ménage inclus" },
+    { icon: "🧹", nom: "Forfait ménage" },
     { icon: "🛏️", nom: "Linge de lit fourni" },
-    { icon: "🧴", nom: "Produits d'accueil" },
+    { icon: "🧴", nom: "Produits d'hygiène fournis" },
+    { icon: "💇", nom: "Sèche-cheveux" },
+    { icon: "🎲", nom: "Jeux de société" },
+    { icon: "🧺", nom: "Étendoir à linge" },
+    { icon: "🧺", nom: "Table et fer à repasser" },
+    { icon: "🍖", nom: "Barbecue fourni" },
+    { icon: "🚲", nom: "2 vélos adultes à disposition" },
+    { icon: "👶", nom: "Équipements bébé" },
+    { icon: "🅿️", nom: "Parking gratuit" },
+    { icon: "🔌", nom: "Prises véhicules électriques" },
+  ],
+
+  // ── Cuisine (icône + nom) ──
+  cuisine: [
+    { icon: "🧊", nom: "Réfrigérateur" },
+    { icon: "🧊", nom: "Congélateur" },
+    { icon: "🍳", nom: "Four" },
+    { icon: "🔥", nom: "Four micro-ondes" },
+    { icon: "🍳", nom: "Plaque à induction 4 feux" },
+    { icon: "🍽️", nom: "Lave-vaisselle" },
+    { icon: "☕", nom: "Bouilloire électrique" },
+    { icon: "☕", nom: "Cafetière électrique" },
+    { icon: "☕", nom: "Machine Nespresso Vertuo" },
+    { icon: "🥄", nom: "Batteur électrique" },
+    { icon: "🍞", nom: "Grille-pain" },
+    { icon: "🍋", nom: "Presse-agrumes électrique" },
   ],
 
   // ── Tarifs (période, prix, détail) ──
@@ -404,6 +413,8 @@ L'appartement a été entièrement rénové en 2024 avec des matériaux de quali
 // ║  🚫 NE PAS MODIFIER EN DESSOUS — moteur de rendu           ║
 // ╚══════════════════════════════════════════════════════════════╝
 
+let currentIndex = 0;
+
 function render() {
   document.title = `${CONFIG.titre} — Location meublée`;
 
@@ -432,6 +443,7 @@ function render() {
 
   // Photos — nouvelle galerie
   if (CONFIG.photos.length > 0) {
+    currentIndex = 0;
     // Afficher la première photo comme photo principale
     document.getElementById('main-photo').src = encodeURI(CONFIG.photos[0]);
     
@@ -450,6 +462,14 @@ function render() {
 
   // Équipements
   document.getElementById('equip-grid').innerHTML = CONFIG.equipements.map(e => `
+    <div class="equip-item">
+      <span class="eq-icon">${e.icon}</span>
+      <span>${e.nom}</span>
+    </div>
+  `).join('');
+
+  // Cuisine
+  document.getElementById('cuisine-grid').innerHTML = CONFIG.cuisine.map(e => `
     <div class="equip-item">
       <span class="eq-icon">${e.icon}</span>
       <span>${e.nom}</span>
@@ -499,6 +519,7 @@ function render() {
 }
 
 function selectPhoto(thumbnail, index) {
+  currentIndex = index;
   // Mettre à jour la photo principale
   document.getElementById('main-photo').src = encodeURI(CONFIG.photos[index]);
   
@@ -509,6 +530,21 @@ function selectPhoto(thumbnail, index) {
   
   // Scroller la vignette au centre
   thumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+function changeMainPhoto(direction) {
+  if (direction === 'next') {
+    currentIndex = (currentIndex + 1) % CONFIG.photos.length;
+  } else {
+    currentIndex = (currentIndex - 1 + CONFIG.photos.length) % CONFIG.photos.length;
+  }
+  document.getElementById('main-photo').src = encodeURI(CONFIG.photos[currentIndex]);
+  
+  // Mettre à jour l'état actif des vignettes
+  const allThumbnails = document.querySelectorAll('.thumbnail');
+  allThumbnails.forEach(t => t.classList.remove('active'));
+  allThumbnails[currentIndex].classList.add('active');
+  allThumbnails[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 }
 
 function scrollThumbnails(direction) {
