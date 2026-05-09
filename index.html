@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" id="html-root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Location Meublée — Votre séjour idéal</title>
+<title id="page-title">Location Meublée — Votre séjour idéal</title>
 <meta name="description" content="Location meublée de tourisme — séjour confortable et tout équipé.">
 <style>
   :root {
@@ -76,21 +76,6 @@
     display: inline-block;
   }
   
-  /* DESCRIPTION */
-  .description-text { font-size: 1.05rem; color: var(--text-light); max-width: 700px; }
-  .key-info {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1rem; margin-top: 1.5rem;
-  }
-  .key-info-item {
-    background: var(--card); border-radius: var(--radius);
-    padding: 1.2rem; text-align: center;
-    box-shadow: var(--shadow);
-  }
-  .key-info-item .icon { font-size: 1.8rem; margin-bottom: .3rem; }
-  .key-info-item .label { font-size: .85rem; color: var(--text-light); }
-  .key-info-item .value { font-weight: 700; font-size: 1.1rem; }
-  
   /* PHOTOS */
   .gallery-container {
     display: flex; flex-direction: column; gap: 1.5rem;
@@ -133,14 +118,6 @@
   }
   .thumbnail:hover { transform: scale(1.05); }
   .thumbnail.active { border-color: var(--accent); }
-  .photo-placeholder {
-    width: 100%; height: 220px;
-    border-radius: var(--radius);
-    background: linear-gradient(135deg, #dfe6e9, #b2bec3);
-    display: flex; align-items: center; justify-content: center;
-    color: #636e72; font-size: .9rem;
-    box-shadow: var(--shadow);
-  }
   
   /* EQUIPEMENTS */
   .equip-grid {
@@ -154,33 +131,6 @@
     font-size: .95rem;
   }
   .equip-item .eq-icon { font-size: 1.3rem; }
-  
-  /* TARIFS */
-  .tarif-cards {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.2rem;
-  }
-  .tarif-card {
-    background: var(--card); border-radius: var(--radius);
-    padding: 1.5rem; text-align: center;
-    box-shadow: var(--shadow); border-top: 4px solid var(--accent);
-  }
-  .tarif-card .period { font-weight: 600; color: var(--primary); font-size: 1.1rem; }
-  .tarif-card .price { font-size: 2rem; font-weight: 700; color: var(--accent); margin: .5rem 0; }
-  .tarif-card .detail { font-size: .85rem; color: var(--text-light); }
-  
-  /* LOCALISATION */
-  .location-info { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; }
-  .location-text { flex: 1; min-width: 250px; }
-  .location-text ul { list-style: none; margin-top: 1rem; }
-  .location-text li { padding: .3rem 0; font-size: .95rem; }
-  .location-text li::before { content: "📍 "; }
-  .map-placeholder {
-    flex: 1; min-width: 280px; height: 250px;
-    border-radius: var(--radius); overflow: hidden;
-    box-shadow: var(--shadow);
-  }
-  .map-placeholder iframe { width: 100%; height: 100%; border: 0; }
   
   /* CONTACT */
   .contact-card {
@@ -206,6 +156,20 @@
     color: var(--text-light); font-size: .85rem;
     border-top: 1px solid #e0e0e0; margin-top: 2rem;
   }
+
+  /* LANG TOGGLE */
+  .lang-toggle {
+    position: absolute; top: 1rem; right: 1rem; z-index: 10;
+    display: flex; gap: 4px;
+    background: rgba(255,255,255,0.2); border-radius: 8px; padding: 3px;
+    backdrop-filter: blur(10px);
+  }
+  .lang-btn {
+    border: none; background: transparent; color: #fff;
+    padding: 6px 12px; border-radius: 6px; font-size: .85rem;
+    cursor: pointer; font-weight: 500; transition: background .2s;
+  }
+  .lang-btn.active { background: rgba(255,255,255,0.3); }
   
   /* LIGHTBOX */
   .lightbox {
@@ -227,6 +191,11 @@
 
 <div class="hero">
   <div class="hero-bg" id="hero-bg"></div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('fr')">🇫🇷</button>
+    <button class="lang-btn" onclick="setLang('en')">🇬🇧</button>
+    <button class="lang-btn" onclick="setLang('de')">🇩🇪</button>
+  </div>
   <div class="hero-content">
     <h1 id="hero-title"></h1>
     <div id="hero-subtitle"></div>
@@ -236,22 +205,14 @@
 </div>
 
 <nav class="nav">
-  <a href="#photos">Photos</a>
-  <a href="#equipements">Prestations</a>
-  <a href="#cuisine">Cuisine</a>
-  <a href="#contact">Contact</a>
+  <a href="#photos" id="nav-photos"></a>
+  <a href="#equipements" id="nav-equipements"></a>
+  <a href="#cuisine" id="nav-cuisine"></a>
+  <a href="#contact" id="nav-contact"></a>
 </nav>
 
-<!--
-<section id="description">
-  <h2>Le logement</h2>
-  <p class="description-text" id="desc-text"></p>
-  <div class="key-info" id="key-info"></div>
-</section>
--->
-
 <section id="photos">
-  <h2>Photos</h2>
+  <h2 id="photos-title"></h2>
   <div class="gallery-container" id="gallery-container">
     <div class="main-photo-wrapper">
       <button class="arrow-btn prev-btn" id="prev-btn" onclick="changeMainPhoto('prev')">←</button>
@@ -265,17 +226,17 @@
 </section>
 
 <section id="equipements">
-  <h2>Prestations</h2>
+  <h2 id="equipements-title"></h2>
   <div class="equip-grid" id="equip-grid"></div>
 </section>
 
 <section id="cuisine">
-  <h2>Cuisine</h2>
+  <h2 id="cuisine-title"></h2>
   <div class="equip-grid" id="cuisine-grid"></div>
 </section>
 
 <section id="contact">
-  <h2>Contact</h2>
+  <h2 id="contact-title"></h2>
   <div class="contact-card" id="contact-card"></div>
 </section>
 
@@ -284,44 +245,106 @@
 <script>
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  📝 CONFIGURATION — MODIFIER ICI POUR PERSONNALISER        ║
-// ║  Pas besoin de toucher au HTML/CSS, tout se change ici !    ║
+// ║  Support multilingue : FR, EN, DE                           ║
 // ╚══════════════════════════════════════════════════════════════╝
+
+let currentLang = 'fr';
 
 const CONFIG = {
 
   // ── Titre & accroche ──
   titre: "Gîte Ty an aod",
-  sousTitre: [
-    "Maison avec vue mer à quelques pas de la plage",
-    "A Portsall sur la dune de Tréompan, cette charmante maison neuve se situe à quelques pas d’une grande plage de sable fin et sur le parcours du GR34. L’emplacement est idéal pour découvrir les nombreuses activités et lieux de loisirs et de randonnées, dans le pays d’Iroise et des Abers. Elle se trouve à 5 mn du port de Portsall, du centre-ville de Ploudalmézeau et des commerces.\n\nUn livret d’accueil est à votre disposition à votre arrivée, où vous trouverez toutes les informations nécessaires pour passer un merveilleux séjour.",
-    "L’hébergement comprend un petit jardin sur terrain clos, 2 places de stationnement privatives et sécurisées, sous carport, avec prises spécialisées pour le rechargement des véhicules (en option).",
-    "Les pièces de vie de la maison disposent d’une belle vue mer et ouvrent sur une terrasse plein sud, aménagée pour profiter des repas en plein air.",
-    "L’hébergement comporte :\n- 2 chambres à lits queen size et 1 chambre avec 3 lits, dont 2 superposés (linge maison et toilette fourni) avec grands placards de rangement\n- 2 salles de douche\n- 3 WC séparés.",
-    "Nous mettons gratuitement à votre disposition le prêt de 2 vélos adultes et des équipements pour bébé (lit pliant, chaise haute, poussette, baignoire de bain)."
-  ],
-  descriptionHero: "Loué dans son intégralité, l'espace se divise aisément en deux parties disposant chacune d'une télévision, d'une cuisine/séjour, permettant ainsi de profiter d'un espace de travail séparé ou d'une suite parentale indépendante",
+  sousTitre: {
+    fr: [
+      "Maison avec vue mer à quelques pas de la plage",
+      "A Portsall sur la dune de Tréompan, cette charmante maison neuve se situe à quelques pas d'une grande plage de sable fin et sur le parcours du GR34. L'emplacement est idéal pour découvrir les nombreuses activités et lieux de loisirs et de randonnées, dans le pays d'Iroise et des Abers. Elle se trouve à 5 mn du port de Portsall, du centre-ville de Ploudalmézeau et des commerces.\n\nUn livret d'accueil est à votre disposition à votre arrivée, où vous trouverez toutes les informations nécessaires pour passer un merveilleux séjour.",
+      "L'hébergement comprend un petit jardin sur terrain clos, 2 places de stationnement privatives et sécurisées, sous carport, avec prises spécialisées pour le rechargement des véhicules (en option).",
+      "Les pièces de vie de la maison disposent d'une belle vue mer et ouvrent sur une terrasse plein sud, aménagée pour profiter des repas en plein air.",
+      "L'hébergement comporte :\n- 2 chambres à lits queen size et 1 chambre avec 3 lits, dont 2 superposés (linge maison et toilette fourni) avec grands placards de rangement\n- 2 salles de douche\n- 3 WC séparés.",
+      "Nous mettons gratuitement à votre disposition le prêt de 2 vélos adultes et des équipements pour bébé (lit pliant, chaise haute, poussette, baignoire de bain)."
+    ],
+    en: [
+      "House with sea view steps away from the beach",
+      "In Portsall on the Tréompan dune, this charming new house is just steps away from a beautiful sandy beach and on the GR34 hiking trail. The location is ideal for discovering the many activities, leisure and hiking spots in Pays d'Iroise and Pays des Abers. It is 5 minutes from Portsall harbour, Ploudalmézeau town centre and shops.\n\nA welcome guide is available upon your arrival, with all the information you need for a wonderful stay.",
+      "The accommodation includes a small garden on enclosed grounds, 2 private and secure parking spaces, under carport, with specialised charging points for electric vehicles (optional).",
+      "The living areas have a beautiful sea view and open onto a south-facing terrace, furnished for outdoor dining.",
+      "The accommodation features:\n- 2 bedrooms with queen-size beds and 1 bedroom with 3 beds, including 2 bunks (house linen and toiletries provided) with large storage cupboards\n- 2 shower rooms\n- 3 separate toilets.",
+      "We provide free loan of 2 adult bicycles and baby equipment (foldable bed, high chair, pushchair, baby bath)."
+    ],
+    de: [
+      "Haus mit Meerblick nur wenige Schritte vom Strand entfernt",
+      "In Portsall auf der Düne von Tréompan liegt dieses charmante neue Haus nur wenige Schritte von einem wunderschönen Sandstrand entfernt und am GR34-Wanderweg. Die Lage ist ideal, um die vielen Aktivitäten, Freizeit- und Wanderziele in der Pays d'Iroise und Pays des Abers zu entdecken. Es liegt 5 Minuten vom Hafen Portsall, dem Zentrum von Ploudalmézeau und den Geschäften entfernt.\n\nBei Ihrer Ankunft steht Ihnen ein Willkommensführer zur Verfügung mit allen Informationen für einen wunderbaren Aufenthalt.",
+      "Die Unterkunft umfasst einen kleinen Garten auf umschlossenen Grundstücken, 2 private und sichere Parkplätze unter Carport mit speziellen Ladepunkten für Elektrofahrzeuge (optional).",
+      "Die Wohnbereiche bieten einen schönen Meerblick und öffnen sich zu einer nach Süden ausgerichteten Terrasse, eingerichtet für Außendining.",
+      "Die Unterkunft verfügt über:\n- 2 Schlafzimmer mit Queensize-Betten und 1 Schlafzimmer mit 3 Betten, davon 2 Etagenbetten (Bettwäsche und Toilettenartikel bereitgestellt) mit großen Stauraum\n- 2 Badezimmer\n- 3 separate Toiletten.",
+      "Wir stellen kostenlos 2 Erwachsenenfahrräder und Baby-Ausrüstung zur Verfügung (Klappbett, Hochstuhl, Kinderwagen, Babybadewanne)."
+    ]
+  },
 
-  badge: "Meublé de tourisme ****",
+  descriptionHero: {
+    fr: "Loué dans son intégralité, l'espace se divise aisément en deux parties disposant chacune d'une télévision, d'une cuisine/séjour, permettant ainsi de profiter d'un espace de travail séparé ou d'une suite parentale indépendante",
+    en: "Rented in its entirety, the space can easily be divided into two parts, each with a television and kitchen/living area, allowing for a separate workspace or independent master suite",
+    de: "Die gesamte Unterkunft kann leicht in zwei Teile aufgeteilt werden, jeder mit Fernseher und Küche/Wohnbereich, was einen separaten Arbeitsbereich oder eine unabhängige Master-Suite ermöglicht"
+  },
 
-  // ── Image de fond du hero (URL d'une photo ou "" pour le dégradé seul) ──
+  badge: {
+    fr: "Meublé de tourisme ****",
+    en: "Furnished holiday home ****",
+    de: "Möbliertes Ferienhaus ****"
+  },
+
   heroImage: "./IMG-1374.JPG",
 
-  // ── Description ──
-  description: `Bienvenue dans notre appartement entièrement meublé et équipé, 
-idéal pour un séjour touristique ou professionnel. Situé en plein centre-ville, 
-vous serez à deux pas des commerces, restaurants et transports en commun. 
-L'appartement a été entièrement rénové en 2024 avec des matériaux de qualité.`,
-
-  // ── Infos clés (icône, label, valeur) ──
-  infos: [
-    { icon: "🏠", label: "Type", value: "T2 — 45m²" },
-    { icon: "🛏️", label: "Couchages", value: "4 personnes" },
-    { icon: "📍", label: "Étage", value: "2ème avec ascenseur" },
-    { icon: "⭐", label: "Classement", value: "Meublé tourisme" },
+  equipements: [
+    { icon: "📶", nom: { fr: "WIFI", en: "WIFI", de: "WLAN" } },
+    { icon: "📺", nom: { fr: "2 TV connectées écran plat", en: "2 Smart flat-screen TVs", de: "2 Smart-Flachbildfernseher" } },
+    { icon: "🔊", nom: { fr: "Enceinte connectée", en: "Smart speaker", de: "Smart Speaker" } },
+    { icon: "🧺", nom: { fr: "Lave-linge", en: "Washing machine", de: "Waschmaschine" } },
+    { icon: "🌀", nom: { fr: "Sèche-linge", en: "Tumble dryer", de: "Trockner" } },
+    { icon: "🌀", nom: { fr: "Ventilateur de plafond", en: "Ceiling fan", de: "Deckenventilator" } },
+    { icon: "🔑", nom: { fr: "Entrée autonome", en: "Self check-in", de: "Selbstständiger Zugang" } },
+    { icon: "🧹", nom: { fr: "Forfait ménage", en: "Cleaning service", de: "Reinigungsdienst" } },
+    { icon: "🛏️", nom: { fr: "Linge de lit fourni", en: "Bed linen included", de: "Bettwäsche inklusive" } },
+    { icon: "🧴", nom: { fr: "Produits d'hygiène fournis", en: "Toiletries provided", de: "Toilettenartikel bereitgestellt" } },
+    { icon: "💇", nom: { fr: "Sèche-cheveux", en: "Hair dryer", de: "Haartrockner" } },
+    { icon: "🎲", nom: { fr: "Jeux de société", en: "Board games", de: "Brettspiele" } },
+    { icon: "🧺", nom: { fr: "Étendoir à linge", en: "Clothes rack", de: "Wäscheständer" } },
+    { icon: "🧺", nom: { fr: "Table et fer à repasser", en: "Ironing board", de: "Bügelbrett" } },
+    { icon: "🍖", nom: { fr: "Barbecue fourni", en: "BBQ provided", de: "Grill vorhanden" } },
+    { icon: "🚲", nom: { fr: "2 vélos adultes à disposition", en: "2 adult bicycles available", de: "2 Erwachsenenfahrräder verfügbar" } },
+    { icon: "👶", nom: { fr: "Équipements bébé", en: "Baby equipment", de: "Baby-Ausrüstung" } },
+    { icon: "🅿️", nom: { fr: "Parking gratuit", en: "Free parking", de: "Kostenloser Parkplatz" } },
+    { icon: "🔌", nom: { fr: "Prises véhicules électriques", en: "EV charging points", de: "Ladestationen für Elektrofahrzeuge" } },
   ],
 
-  // ── Photos (URLs des images — ajouter autant que voulu) ──
-  // Laisser vide [] pour afficher des placeholders
+  cuisine: [
+    { icon: "🧊", nom: { fr: "Réfrigérateur", en: "Fridge", de: "Kühlschrank" } },
+    { icon: "🧊", nom: { fr: "Congélateur", en: "Freezer", de: "Gefrierschrank" } },
+    { icon: "🍳", nom: { fr: "Four", en: "Oven", de: "Backofen" } },
+    { icon: "🔥", nom: { fr: "Four micro-ondes", en: "Microwave", de: "Mikrowelle" } },
+    { icon: "🍳", nom: { fr: "Plaque à induction 4 feux", en: "4-hob induction hob", de: "4-flammiges Induktionkochfeld" } },
+    { icon: "🍽️", nom: { fr: "Lave-vaisselle", en: "Dishwasher", de: "Geschirrspüler" } },
+    { icon: "☕", nom: { fr: "Bouilloire électrique", en: "Electric kettle", de: "Wasserkocher" } },
+    { icon: "☕", nom: { fr: "Cafetière électrique", en: "Coffee maker", de: "Kaffeemaschine" } },
+    { icon: "☕", nom: { fr: "Machine Nespresso Vertuo", en: "Nespresso Vertuo machine", de: "Nespresso Vertuo Maschine" } },
+    { icon: "🥄", nom: { fr: "Batteur électrique", en: "Electric mixer", de: "Elektrischer Mixer" } },
+    { icon: "🍞", nom: { fr: "Grille-pain", en: "Toaster", de: "Toaster" } },
+    { icon: "🍋", nom: { fr: "Presse-agrumes électrique", en: "Electric citrus press", de: "Elektrische Zitronenpresse" } },
+  ],
+
+  sectionTitles: {
+    photos: { fr: "Photos", en: "Photos", de: "Fotos" },
+    equipements: { fr: "Prestations", en: "Amenities", de: "Ausstattung" },
+    cuisine: { fr: "Cuisine", en: "Kitchen", de: "Küche" },
+    contact: { fr: "Contact", en: "Contact", de: "Kontakt" },
+    nav: {
+      photos: { fr: "Photos", en: "Photos", de: "Fotos" },
+      equipements: { fr: "Prestations", en: "Amenities", de: "Ausstattung" },
+      cuisine: { fr: "Cuisine", en: "Kitchen", de: "Küche" },
+      contact: { fr: "Contact", en: "Contact", de: "Kontakt" },
+    }
+  },
+
   photos: [
     "./IMG_1303.JPG",
     "./IMG_1305.JPG",
@@ -344,78 +367,44 @@ L'appartement a été entièrement rénové en 2024 avec des matériaux de quali
     "./f4f2f71c-8c25-4918-9d75-b5f0ba027ddf.JPG",
   ],
 
-  // ── Équipements (icône + nom) ──
-  equipements: [
-    { icon: "📶", nom: "WIFI" },
-    { icon: "📺", nom: "2 TV connectées écran plat" },
-    { icon: "🔊", nom: "Enceinte connectée" },
-    { icon: "🧺", nom: "Lave-linge" },
-    { icon: "🌀", nom: "Sèche-linge" },
-    { icon: "🌀", nom: "Ventilateur de plafond" },
-    { icon: "🔑", nom: "Entrée autonome" },
-    { icon: "🧹", nom: "Forfait ménage" },
-    { icon: "🛏️", nom: "Linge de lit fourni" },
-    { icon: "🧴", nom: "Produits d'hygiène fournis" },
-    { icon: "💇", nom: "Sèche-cheveux" },
-    { icon: "🎲", nom: "Jeux de société" },
-    { icon: "🧺", nom: "Étendoir à linge" },
-    { icon: "🧺", nom: "Table et fer à repasser" },
-    { icon: "🍖", nom: "Barbecue fourni" },
-    { icon: "🚲", nom: "2 vélos adultes à disposition" },
-    { icon: "👶", nom: "Équipements bébé" },
-    { icon: "🅿️", nom: "Parking gratuit" },
-    { icon: "🔌", nom: "Prises véhicules électriques" },
-  ],
-
-  // ── Cuisine (icône + nom) ──
-  cuisine: [
-    { icon: "🧊", nom: "Réfrigérateur" },
-    { icon: "🧊", nom: "Congélateur" },
-    { icon: "🍳", nom: "Four" },
-    { icon: "🔥", nom: "Four micro-ondes" },
-    { icon: "🍳", nom: "Plaque à induction 4 feux" },
-    { icon: "🍽️", nom: "Lave-vaisselle" },
-    { icon: "☕", nom: "Bouilloire électrique" },
-    { icon: "☕", nom: "Cafetière électrique" },
-    { icon: "☕", nom: "Machine Nespresso Vertuo" },
-    { icon: "🥄", nom: "Batteur électrique" },
-    { icon: "🍞", nom: "Grille-pain" },
-    { icon: "🍋", nom: "Presse-agrumes électrique" },
-  ],
-
-  // ── Tarifs (période, prix, détail) ──
-  tarifs: [
-    { periode: "Nuitée", prix: "75€", detail: "Minimum 2 nuits" },
-    { periode: "Semaine", prix: "450€", detail: "Soit ~64€/nuit" },
-    { periode: "Mois", prix: "1 200€", detail: "Charges comprises" },
-  ],
-
-  // ── Localisation ──
-  ville: "Montpellier",
-  quartier: "Centre historique — Écusson",
-  proximite: [
-    "Gare Saint-Roch — 10 min à pied",
-    "Tramway ligne 1 — 2 min",
-    "Plage — 20 min en voiture",
-    "Aéroport — 15 min",
-  ],
-  // URL Google Maps embed (clic droit sur Google Maps → Partager → Intégrer)
-  // Laisser "" pour ne pas afficher de carte
-  mapEmbed: "",
-
-  // ── Contact ──
   prenom: "Pascal ou Marylène",
-  telephone: "+33660322393",        // ex: "06 12 34 56 78"
+  telephone: "+33660322393",
   email: "pascaljaffredou@gmail.com",
-  messageBienvenue: "N'hésitez pas à nous contacter pour toute question ou réservation !",
+  messageBienvenue: {
+    fr: "N'hésitez pas à nous contacter pour toute question ou réservation !",
+    en: "Feel free to contact us for any questions or bookings!",
+    de: "Kontaktieren Sie uns gerne für Fragen oder Buchungen!"
+  },
 
-  // ── Liens plateformes (laisser "" si pas de compte) ──
-  airbnb: "",    // ex: "https://airbnb.com/rooms/123456"
-  booking: "",   // ex: "https://booking.com/hotel/..."
+  airbnb: "",
+  booking: "",
 
-  // ── Pied de page ──
   footer: "© 2026 Tyanaod — Location meublée non professionnelle (LMNP)",
 };
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  🌍 GESTION DE LA LANGUE                                    ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+function setLang(lang) {
+  currentLang = lang;
+  
+  // Mettre à jour l'attribut HTML
+  document.getElementById('html-root').lang = lang;
+  
+  // Mettre à jour les boutons de langue
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // Rafraîchir le rendu
+  render();
+}
+
+function getText(obj) {
+  return typeof obj === 'object' && obj !== null && obj[currentLang]
+    ? obj[currentLang]
+    : obj;
+}
 
 // ╔══════════════════════════════════════════════════════════════╗
 // ║  🚫 NE PAS MODIFIER EN DESSOUS — moteur de rendu           ║
@@ -424,38 +413,30 @@ L'appartement a été entièrement rénové en 2024 avec des matériaux de quali
 let currentIndex = 0;
 
 function render() {
-  document.title = `${CONFIG.titre} — Location meublée`;
+  const lang = currentLang;
+
+  document.title = `${CONFIG.titre} — ${lang === 'fr' ? 'Location meublée' : lang === 'en' ? 'Holiday rental' : 'Ferienwohnung'}`;
 
   // Hero
   document.getElementById('hero-title').textContent = CONFIG.titre;
-  document.getElementById('hero-subtitle').innerHTML = CONFIG.sousTitre.map((p, i) => i === 0 ? `<h3>${p}</h3>` : `<p>${p.replace(/\n/g, '<br>')}</p>`).join('<br><br>');
-  document.getElementById('hero-description').textContent = CONFIG.descriptionHero;
-  document.getElementById('hero-badge').textContent = CONFIG.badge;
+  document.getElementById('hero-subtitle').innerHTML = CONFIG.sousTitre[lang].map((p, i) => i === 0 ? `<h3>${p}</h3>` : `<p>${p.replace(/\n/g, '<br>')}</p>`).join('<br><br>');
+  document.getElementById('hero-description').textContent = getText(CONFIG.descriptionHero);
+  document.getElementById('hero-badge').textContent = getText(CONFIG.badge);
   if (CONFIG.heroImage) {
     document.getElementById('hero-bg').style.backgroundImage = `url('${CONFIG.heroImage}')`;
   }
 
-  // Description
-  const descText = document.getElementById('desc-text');
-  if (descText) {
-    descText.textContent = CONFIG.description;
-    const keyInfo = document.getElementById('key-info');
-    keyInfo.innerHTML = CONFIG.infos.map(i => `
-      <div class="key-info-item">
-        <div class="icon">${i.icon}</div>
-        <div class="value">${i.value}</div>
-        <div class="label">${i.label}</div>
-      </div>
-    `).join('');
-  }
+  // Navigation
+  document.getElementById('nav-photos').textContent = getText(CONFIG.sectionTitles.nav.photos);
+  document.getElementById('nav-equipements').textContent = getText(CONFIG.sectionTitles.nav.equipements);
+  document.getElementById('nav-cuisine').textContent = getText(CONFIG.sectionTitles.nav.cuisine);
+  document.getElementById('nav-contact').textContent = getText(CONFIG.sectionTitles.nav.contact);
 
-  // Photos — nouvelle galerie
+  // Photos
+  document.getElementById('photos-title').textContent = getText(CONFIG.sectionTitles.photos);
   if (CONFIG.photos.length > 0) {
     currentIndex = 0;
-    // Afficher la première photo comme photo principale
     document.getElementById('main-photo').src = encodeURI(CONFIG.photos[0]);
-    
-    // Créer les vignettes
     const thumbnailsContainer = document.getElementById('thumbnails-container');
     thumbnailsContainer.innerHTML = CONFIG.photos.map((url, idx) => `
       <img class="thumbnail ${idx === 0 ? 'active' : ''}" 
@@ -464,61 +445,36 @@ function render() {
            loading="lazy"
            onclick="selectPhoto(this, ${idx})">
     `).join('');
-  } else {
-    document.getElementById('main-photo').src = '';
   }
 
   // Équipements
+  document.getElementById('equipements-title').textContent = getText(CONFIG.sectionTitles.equipements);
   document.getElementById('equip-grid').innerHTML = CONFIG.equipements.map(e => `
     <div class="equip-item">
       <span class="eq-icon">${e.icon}</span>
-      <span>${e.nom}</span>
+      <span>${getText(e.nom)}</span>
     </div>
   `).join('');
 
   // Cuisine
+  document.getElementById('cuisine-title').textContent = getText(CONFIG.sectionTitles.cuisine);
   document.getElementById('cuisine-grid').innerHTML = CONFIG.cuisine.map(e => `
     <div class="equip-item">
       <span class="eq-icon">${e.icon}</span>
-      <span>${e.nom}</span>
+      <span>${getText(e.nom)}</span>
     </div>
   `).join('');
 
-  // Tarifs
-  const tarifCards = document.getElementById('tarif-cards');
-  if (tarifCards) {
-    tarifCards.innerHTML = CONFIG.tarifs.map(t => `
-      <div class="tarif-card">
-        <div class="period">${t.periode}</div>
-        <div class="price">${t.prix}</div>
-        <div class="detail">${t.detail}</div>
-      </div>
-    `).join('');
-  }
-
-  // Localisation
-  const locDiv = document.getElementById('location-info');
-  if (locDiv) {
-    let locHTML = `<div class="location-text">
-      <p><strong>${CONFIG.ville}</strong> — ${CONFIG.quartier}</p>
-      <ul>${CONFIG.proximite.map(p => `<li>${p}</li>`).join('')}</ul>
-    </div>`;
-    if (CONFIG.mapEmbed) {
-      locHTML += `<div class="map-placeholder"><iframe src="${encodeURI(CONFIG.mapEmbed)}" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>`;
-    }
-    locDiv.innerHTML = locHTML;
-  }
-
   // Contact
+  document.getElementById('contact-title').textContent = getText(CONFIG.sectionTitles.contact);
   const cc = document.getElementById('contact-card');
-  let contactHTML = `<p>${CONFIG.messageBienvenue}</p>`;
+  let contactHTML = `<p>${getText(CONFIG.messageBienvenue)}</p>`;
   contactHTML += `<p>👤 <strong>${CONFIG.prenom}</strong></p>`;
   if (CONFIG.telephone) contactHTML += `<p>📞 <a href="tel:${CONFIG.telephone.replace(/\s/g,'')}">${CONFIG.telephone}</a></p>`;
   if (CONFIG.email) contactHTML += `<p>✉️ <a href="mailto:${CONFIG.email}">${CONFIG.email}</a></p>`;
-  if (CONFIG.airbnb) contactHTML += `<a href="${encodeURI(CONFIG.airbnb)}" class="btn-contact" target="_blank" rel="noopener">Voir sur Airbnb</a> `;
-  if (CONFIG.booking) contactHTML += `<a href="${encodeURI(CONFIG.booking)}" class="btn-contact" target="_blank" rel="noopener">Voir sur Booking</a>`;
   if (!CONFIG.airbnb && !CONFIG.booking) {
-    contactHTML += `<a href="mailto:${CONFIG.email}" class="btn-contact" style="color: #fff;">Envoyer un email</a>`;
+    const emailLabel = lang === 'fr' ? 'Envoyer un email' : lang === 'en' ? 'Send an email' : 'E-Mail senden';
+    contactHTML += `<a href="mailto:${CONFIG.email}" class="btn-contact" style="color: #fff;">${emailLabel}</a>`;
   }
   cc.innerHTML = contactHTML;
 
@@ -528,15 +484,10 @@ function render() {
 
 function selectPhoto(thumbnail, index) {
   currentIndex = index;
-  // Mettre à jour la photo principale
   document.getElementById('main-photo').src = encodeURI(CONFIG.photos[index]);
-  
-  // Mettre à jour l'état actif des vignettes
   const allThumbnails = document.querySelectorAll('.thumbnail');
   allThumbnails.forEach(t => t.classList.remove('active'));
   thumbnail.classList.add('active');
-  
-  // Scroller la vignette au centre
   thumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 }
 
@@ -547,22 +498,10 @@ function changeMainPhoto(direction) {
     currentIndex = (currentIndex - 1 + CONFIG.photos.length) % CONFIG.photos.length;
   }
   document.getElementById('main-photo').src = encodeURI(CONFIG.photos[currentIndex]);
-  
-  // Mettre à jour l'état actif des vignettes
   const allThumbnails = document.querySelectorAll('.thumbnail');
   allThumbnails.forEach(t => t.classList.remove('active'));
   allThumbnails[currentIndex].classList.add('active');
   allThumbnails[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-}
-
-function scrollThumbnails(direction) {
-  const container = document.getElementById('thumbnails-container');
-  const scrollAmount = 200; // pixels
-  if (direction === 'left') {
-    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  } else {
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  }
 }
 
 function openLightbox(src) {
