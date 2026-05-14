@@ -50,6 +50,16 @@
     font-weight: 600;
     font-size: .95rem;
   }
+  .hero-content .hero-subtitle p {
+    text-align: justify;
+    margin: 1rem auto 0;
+    line-height: 1.6;
+    max-width: calc(100% - 6cm);
+  }
+  #photos {
+    padding: 0;
+    margin-top: 2rem;
+  }
   
   /* NAV STICKY */
   .nav {
@@ -149,6 +159,19 @@
     transition: background .2s;
   }
   .btn-contact:hover { background: var(--primary-light); }
+  .btn-secondary {
+    background: var(--accent);
+  }
+  .btn-secondary:hover {
+    background: var(--accent-light);
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
   
   /* FOOTER */
   footer {
@@ -199,8 +222,27 @@
   <div class="hero-content">
     <h1 id="hero-title"></h1>
     <div id="hero-subtitle"></div>
-    <p id="hero-description" style="font-size: 1rem; opacity: 0.95; margin-top: 1rem; max-width: 600px; margin-left: auto; margin-right: auto;"></p>
     <span class="badge" id="hero-badge"></span>
+
+    <section id="photos">
+      <h2 id="photos-title"></h2>
+      <div class="gallery-container" id="gallery-container">
+        <div class="main-photo-wrapper">
+          <button class="arrow-btn prev-btn" id="prev-btn" onclick="changeMainPhoto('prev')">←</button>
+          <img class="main-photo" id="main-photo" src="" alt="Photo principale du logement" onclick="openLightbox(this.src)">
+          <button class="arrow-btn next-btn" id="next-btn" onclick="changeMainPhoto('next')">→</button>
+        </div>
+        <div class="thumbnails-wrapper">
+          <div class="thumbnails-container" id="thumbnails-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <p id="hero-description" style="font-size: 1rem; opacity: 0.95; margin-top: 1rem; max-width: 600px; margin-left: auto; margin-right: auto;"></p>
+    <div class="hero-actions">
+      <a href="livret.html" class="btn-contact" id="livret-link" target="_blank" rel="noopener">Consulter le livret</a>
+      <a href="mailto:pascaljaffredou@gmail.com" class="btn-contact btn-secondary" id="mail-link">Envoyer par email</a>
+    </div>
   </div>
 </div>
 
@@ -210,20 +252,6 @@
   <a href="#cuisine" id="nav-cuisine"></a>
   <a href="#contact" id="nav-contact"></a>
 </nav>
-
-<section id="photos">
-  <h2 id="photos-title"></h2>
-  <div class="gallery-container" id="gallery-container">
-    <div class="main-photo-wrapper">
-      <button class="arrow-btn prev-btn" id="prev-btn" onclick="changeMainPhoto('prev')">←</button>
-      <img class="main-photo" id="main-photo" src="" alt="Photo principale du logement" onclick="openLightbox(this.src)">
-      <button class="arrow-btn next-btn" id="next-btn" onclick="changeMainPhoto('next')">→</button>
-    </div>
-    <div class="thumbnails-wrapper">
-      <div class="thumbnails-container" id="thumbnails-container"></div>
-    </div>
-  </div>
-</section>
 
 <section id="equipements">
   <h2 id="equipements-title"></h2>
@@ -257,11 +285,13 @@ const CONFIG = {
   sousTitre: {
     fr: [
       "Maison avec vue mer à quelques pas de la plage",
-      "A Portsall sur la dune de Tréompan, cette charmante maison neuve se situe à quelques pas d'une grande plage de sable fin et sur le parcours du GR34. L'emplacement est idéal pour découvrir les nombreuses activités et lieux de loisirs et de randonnées, dans le pays d'Iroise et des Abers. Elle se trouve à 5 mn du port de Portsall, du centre-ville de Ploudalmézeau et des commerces.\n\nUn livret d'accueil est à votre disposition à votre arrivée, où vous trouverez toutes les informations nécessaires pour passer un merveilleux séjour.",
+      "A Portsall, sur la dune de Tréompan, cette charmante maison neuve se situe à quelques pas d'une grande plage de sable fin et sur le parcours du GR34.\nL'emplacement est idéal pour découvrir les nombreuses activités et lieux de loisirs et de randonnées, dans le pays d'Iroise et des Abers.",
+      "Elle se trouve à 5 mn du port de Portsall, du centre-ville de Ploudalmézeau et des commerces.",
+      "Un livret d'accueil est à votre disposition à votre arrivée, dans lequel vous trouverez toutes les informations nécessaires pour passer un merveilleux séjour.",
       "L'hébergement comprend un petit jardin sur terrain clos, 2 places de stationnement privatives et sécurisées, sous carport, avec prises spécialisées pour le rechargement des véhicules (en option).",
-      "Les pièces de vie de la maison disposent d'une belle vue mer et ouvrent sur une terrasse plein sud, aménagée pour profiter des repas en plein air.",
-      "L'hébergement comporte :\n- 2 chambres à lits queen size et 1 chambre avec 3 lits, dont 2 superposés (linge maison et toilette fourni) avec grands placards de rangement\n- 2 salles de douche\n- 3 WC séparés.",
-      "Nous mettons gratuitement à votre disposition le prêt de 2 vélos adultes et des équipements pour bébé (lit pliant, chaise haute, poussette, baignoire de bain)."
+      "Vous disposerez de :\n- 2 pièces de vie qui bénéficient d'une belle vue mer et ouvrent sur une terrasse plein sud, aménagée pour profiter des repas en plein air\n- 2 chambres à lits queen size et 1 chambre avec 3 lits, dont 2 superposés (linge maison et toilette fourni) avec grands placards de rangement\n- 2 salles de douche\n- 3 WC séparés.",
+      "Nous mettons gratuitement à votre disposition 2 vélos adultes et des équipements pour bébé (lit pliant, chaise haute, poussette, baignoire de bain).",
+      "Loué dans son intégralité, l'espace se divise aisément en deux parties disposant chacune d'une télévision, d'une cuisine/séjour, permettant ainsi de profiter d'un espace de travail séparé ou d'une suite parentale indépendante."
     ],
     en: [
       "House with sea view steps away from the beach",
@@ -282,7 +312,7 @@ const CONFIG = {
   },
 
   descriptionHero: {
-    fr: "Loué dans son intégralité, l'espace se divise aisément en deux parties disposant chacune d'une télévision, d'une cuisine/séjour, permettant ainsi de profiter d'un espace de travail séparé ou d'une suite parentale indépendante",
+    fr: "",
     en: "Rented in its entirety, the space can easily be divided into two parts, each with a television and kitchen/living area, allowing for a separate workspace or independent master suite",
     de: "Die gesamte Unterkunft kann leicht in zwei Teile aufgeteilt werden, jeder mit Fernseher und Küche/Wohnbereich, was einen separaten Arbeitsbereich oder eine unabhängige Master-Suite ermöglicht"
   },
@@ -295,41 +325,43 @@ const CONFIG = {
 
   heroImage: "./IMG-1374.JPG",
 
+  livretUrl: "https://gitetyanaod.fr/livret.html",
+
   equipements: [
-    { icon: "📶", nom: { fr: "WIFI", en: "WIFI", de: "WLAN" } },
     { icon: "📺", nom: { fr: "2 TV connectées écran plat", en: "2 Smart flat-screen TVs", de: "2 Smart-Flachbildfernseher" } },
-    { icon: "🔊", nom: { fr: "Enceinte connectée", en: "Smart speaker", de: "Smart Speaker" } },
-    { icon: "🧺", nom: { fr: "Lave-linge", en: "Washing machine", de: "Waschmaschine" } },
-    { icon: "🌀", nom: { fr: "Sèche-linge", en: "Tumble dryer", de: "Trockner" } },
-    { icon: "🌀", nom: { fr: "Ventilateur de plafond", en: "Ceiling fan", de: "Deckenventilator" } },
-    { icon: "🔑", nom: { fr: "Entrée autonome", en: "Self check-in", de: "Selbstständiger Zugang" } },
-    { icon: "🧹", nom: { fr: "Forfait ménage", en: "Cleaning service", de: "Reinigungsdienst" } },
-    { icon: "🛏️", nom: { fr: "Linge de lit fourni", en: "Bed linen included", de: "Bettwäsche inklusive" } },
-    { icon: "🧴", nom: { fr: "Produits d'hygiène fournis", en: "Toiletries provided", de: "Toilettenartikel bereitgestellt" } },
-    { icon: "💇", nom: { fr: "Sèche-cheveux", en: "Hair dryer", de: "Haartrockner" } },
-    { icon: "🎲", nom: { fr: "Jeux de société", en: "Board games", de: "Brettspiele" } },
-    { icon: "🧺", nom: { fr: "Étendoir à linge", en: "Clothes rack", de: "Wäscheständer" } },
-    { icon: "🧺", nom: { fr: "Table et fer à repasser", en: "Ironing board", de: "Bügelbrett" } },
-    { icon: "🍖", nom: { fr: "Barbecue fourni", en: "BBQ provided", de: "Grill vorhanden" } },
     { icon: "🚲", nom: { fr: "2 vélos adultes à disposition", en: "2 adult bicycles available", de: "2 Erwachsenenfahrräder verfügbar" } },
-    { icon: "👶", nom: { fr: "Équipements bébé", en: "Baby equipment", de: "Baby-Ausrüstung" } },
+    { icon: "🍖", nom: { fr: "Barbecue fourni", en: "BBQ provided", de: "Grill vorhanden" } },
+    { icon: "🔊", nom: { fr: "Enceinte connectée", en: "Smart speaker", de: "Smart Speaker" } },
+    { icon: "🔑", nom: { fr: "Entrée autonome", en: "Self check-in", de: "Selbstständiger Zugang" } },
+    { icon: "🧺", nom: { fr: "Étendoir à linge", en: "Clothes rack", de: "Wäscheständer" } },
+    { icon: "🧹", nom: { fr: "Forfait ménage", en: "Cleaning service", de: "Reinigungsdienst" } },
+    { icon: "🎲", nom: { fr: "Jeux de société", en: "Board games", de: "Brettspiele" } },
+    { icon: "🧺", nom: { fr: "Lave-linge", en: "Washing machine", de: "Waschmaschine" } },
+    { icon: "🛏️", nom: { fr: "Linge de lit fourni", en: "Bed linen included", de: "Bettwäsche inklusive" } },
     { icon: "🅿️", nom: { fr: "Parking gratuit", en: "Free parking", de: "Kostenloser Parkplatz" } },
     { icon: "🔌", nom: { fr: "Prises véhicules électriques", en: "EV charging points", de: "Ladestationen für Elektrofahrzeuge" } },
+    { icon: "🧴", nom: { fr: "Produits d'hygiène fournis", en: "Toiletries provided", de: "Toilettenartikel bereitgestellt" } },
+    { icon: "💇", nom: { fr: "Sèche-cheveux", en: "Hair dryer", de: "Haartrockner" } },
+    { icon: "🌀", nom: { fr: "Sèche-linge", en: "Tumble dryer", de: "Trockner" } },
+    { icon: "🧺", nom: { fr: "Table et fer à repasser", en: "Ironing board", de: "Bügelbrett" } },
+    { icon: "📶", nom: { fr: "WIFI", en: "WIFI", de: "WLAN" } },
+    { icon: "👶", nom: { fr: "Équipements bébé", en: "Baby equipment", de: "Baby-Ausrüstung" } },
   ],
 
   cuisine: [
-    { icon: "🧊", nom: { fr: "Réfrigérateur", en: "Fridge", de: "Kühlschrank" } },
+    { icon: "🍲", nom: { fr: "autocuiseur vapeur", en: "steam pressure cooker", de: "Dampfkochtopf" } },
+    { icon: "🥄", nom: { fr: "Batteur électrique", en: "Electric mixer", de: "Elektrischer Mixer" } },
+    { icon: "☕", nom: { fr: "Bouilloire électrique", en: "Electric kettle", de: "Wasserkocher" } },
+    { icon: "☕", nom: { fr: "Cafetière électrique", en: "Coffee maker", de: "Kaffeemaschine" } },
     { icon: "🧊", nom: { fr: "Congélateur", en: "Freezer", de: "Gefrierschrank" } },
     { icon: "🍳", nom: { fr: "Four", en: "Oven", de: "Backofen" } },
     { icon: "🔥", nom: { fr: "Four micro-ondes", en: "Microwave", de: "Mikrowelle" } },
-    { icon: "🍳", nom: { fr: "Plaque à induction 4 feux", en: "4-hob induction hob", de: "4-flammiges Induktionkochfeld" } },
-    { icon: "🍽️", nom: { fr: "Lave-vaisselle", en: "Dishwasher", de: "Geschirrspüler" } },
-    { icon: "☕", nom: { fr: "Bouilloire électrique", en: "Electric kettle", de: "Wasserkocher" } },
-    { icon: "☕", nom: { fr: "Cafetière électrique", en: "Coffee maker", de: "Kaffeemaschine" } },
-    { icon: "☕", nom: { fr: "Machine Nespresso Vertuo", en: "Nespresso Vertuo machine", de: "Nespresso Vertuo Maschine" } },
-    { icon: "🥄", nom: { fr: "Batteur électrique", en: "Electric mixer", de: "Elektrischer Mixer" } },
     { icon: "🍞", nom: { fr: "Grille-pain", en: "Toaster", de: "Toaster" } },
+    { icon: "🍽️", nom: { fr: "Lave-vaisselle", en: "Dishwasher", de: "Geschirrspüler" } },
+    { icon: "☕", nom: { fr: "Machine Nespresso Vertuo", en: "Nespresso Vertuo machine", de: "Nespresso Vertuo Maschine" } },
+    { icon: "🍳", nom: { fr: "Plaque à induction 4 feux", en: "4-hob induction hob", de: "4-flammiges Induktionkochfeld" } },
     { icon: "🍋", nom: { fr: "Presse-agrumes électrique", en: "Electric citrus press", de: "Elektrische Zitronenpresse" } },
+    { icon: "🧊", nom: { fr: "Réfrigérateur", en: "Fridge", de: "Kühlschrank" } },
   ],
 
   sectionTitles: {
@@ -361,7 +393,6 @@ const CONFIG = {
     "./IMG_1328.JPG",
     "./IMG_1330.JPG",
     "./IMG_7586.JPG",
-    "./IMG_8509.HEIC",
     "./40c1514b-f42d-4d42-a487-44ee6735193c.JPG",
     "./f31d3c6f-b08b-4a3c-9c89-59d7f2faf402.JPG",
     "./f4f2f71c-8c25-4918-9d75-b5f0ba027ddf.JPG",
@@ -420,11 +451,29 @@ function render() {
   // Hero
   document.getElementById('hero-title').textContent = CONFIG.titre;
   document.getElementById('hero-subtitle').innerHTML = CONFIG.sousTitre[lang].map((p, i) => i === 0 ? `<h3>${p}</h3>` : `<p>${p.replace(/\n/g, '<br>')}</p>`).join('<br><br>');
-  document.getElementById('hero-description').textContent = getText(CONFIG.descriptionHero);
+  const heroDescription = document.getElementById('hero-description');
+  const descriptionText = getText(CONFIG.descriptionHero);
+  heroDescription.textContent = descriptionText;
+  heroDescription.style.display = descriptionText ? 'block' : 'none';
   document.getElementById('hero-badge').textContent = getText(CONFIG.badge);
   if (CONFIG.heroImage) {
     document.getElementById('hero-bg').style.backgroundImage = `url('${CONFIG.heroImage}')`;
   }
+
+  const livretUrl = CONFIG.livretUrl || 'livret.html';
+  const mailSubject = encodeURIComponent(
+    lang === 'fr' ? "Livret d'accueil Ty an aod" : lang === 'en' ? "Ty an aod welcome guide" : "Ty an aod Willkommensführer"
+  );
+  const mailBody = encodeURIComponent(
+    (lang === 'fr' ? "Bonjour,%0A%0AJe vous partage le livret d'accueil du gîte Ty an aod : " :
+     lang === 'en' ? "Hello,%0A%0AHere is the Ty an aod welcome guide: " :
+     "Hallo,%0A%0AHier ist der Ty an aod Willkommensführer: ")
+    + livretUrl + "%0A%0ABien cordialement."
+  );
+  document.getElementById('livret-link').textContent = lang === 'fr' ? 'Consulter le livret' : lang === 'en' ? 'View the guide' : 'Willkommensführer ansehen';
+  document.getElementById('livret-link').href = livretUrl;
+  document.getElementById('mail-link').textContent = lang === 'fr' ? 'Envoyer par email' : lang === 'en' ? 'Send by email' : 'Per E-Mail senden';
+  document.getElementById('mail-link').href = `mailto:${CONFIG.email}?subject=${mailSubject}&body=${mailBody}`;
 
   // Navigation
   document.getElementById('nav-photos').textContent = getText(CONFIG.sectionTitles.nav.photos);
