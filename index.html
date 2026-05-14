@@ -238,9 +238,9 @@
 <div class="hero">
   <div class="hero-bg" id="hero-bg"></div>
   <div class="lang-toggle">
-    <button class="lang-btn active" onclick="setLang('fr')">🇫🇷</button>
-    <button class="lang-btn" onclick="setLang('en')">🇬🇧</button>
-    <button class="lang-btn" onclick="setLang('de')">🇩🇪</button>
+    <button class="lang-btn active" onclick="setLang('fr', this)">🇫🇷</button>
+    <button class="lang-btn" onclick="setLang('en', this)">🇬🇧</button>
+    <button class="lang-btn" onclick="setLang('de', this)">🇩🇪</button>
   </div>
   <div class="hero-content">
     <h1 id="hero-title"></h1>
@@ -432,7 +432,7 @@ const CONFIG = {
 // ║  🌍 GESTION DE LA LANGUE                                    ║
 // ╚══════════════════════════════════════════════════════════════╝
 
-function setLang(lang) {
+function setLang(lang, btn) {
   currentLang = lang;
   
   // Mettre à jour l'attribut HTML
@@ -440,7 +440,7 @@ function setLang(lang) {
   
   // Mettre à jour les boutons de langue
   document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+  btn.classList.add('active');
   
   // Rafraîchir le rendu
   render();
