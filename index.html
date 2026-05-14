@@ -56,6 +56,12 @@
     line-height: 1.6;
     max-width: calc(100% - 6cm);
   }
+  #descriptif .descriptif-text {
+    text-align: justify;
+    max-width: calc(100% - 6cm);
+    margin: 0 auto;
+    line-height: 1.6;
+  }
   #photos {
     padding: 0;
     margin-top: 2rem;
@@ -237,21 +243,21 @@
         </div>
       </div>
     </section>
-
-    <p id="hero-description" style="font-size: 1rem; opacity: 0.95; margin-top: 1rem; max-width: 600px; margin-left: auto; margin-right: auto;"></p>
-    <div class="hero-actions">
-      <a href="livret.html" class="btn-contact" id="livret-link" target="_blank" rel="noopener">Consulter le livret</a>
-      <a href="mailto:pascaljaffredou@gmail.com" class="btn-contact btn-secondary" id="mail-link">Envoyer par email</a>
-    </div>
   </div>
 </div>
 
 <nav class="nav">
   <a href="#photos" id="nav-photos"></a>
+  <a href="#descriptif" id="nav-descriptif"></a>
   <a href="#equipements" id="nav-equipements"></a>
   <a href="#cuisine" id="nav-cuisine"></a>
   <a href="#contact" id="nav-contact"></a>
 </nav>
+
+<section id="descriptif">
+  <h2 id="descriptif-title"></h2>
+  <div class="descriptif-text" id="descriptif-text"></div>
+</section>
 
 <section id="equipements">
   <h2 id="equipements-title"></h2>
@@ -284,31 +290,19 @@ const CONFIG = {
   titre: "Gîte Ty an aod",
   sousTitre: {
     fr: [
-      "Maison avec vue mer à quelques pas de la plage",
-      "A Portsall, sur la dune de Tréompan, cette charmante maison neuve se situe à quelques pas d'une grande plage de sable fin et sur le parcours du GR34.\nL'emplacement est idéal pour découvrir les nombreuses activités et lieux de loisirs et de randonnées, dans le pays d'Iroise et des Abers.",
-      "Elle se trouve à 5 mn du port de Portsall, du centre-ville de Ploudalmézeau et des commerces.",
-      "Un livret d'accueil est à votre disposition à votre arrivée, dans lequel vous trouverez toutes les informations nécessaires pour passer un merveilleux séjour.",
-      "L'hébergement comprend un petit jardin sur terrain clos, 2 places de stationnement privatives et sécurisées, sous carport, avec prises spécialisées pour le rechargement des véhicules (en option).",
-      "Vous disposerez de :\n- 2 pièces de vie qui bénéficient d'une belle vue mer et ouvrent sur une terrasse plein sud, aménagée pour profiter des repas en plein air\n- 2 chambres à lits queen size et 1 chambre avec 3 lits, dont 2 superposés (linge maison et toilette fourni) avec grands placards de rangement\n- 2 salles de douche\n- 3 WC séparés.",
-      "Nous mettons gratuitement à votre disposition 2 vélos adultes et des équipements pour bébé (lit pliant, chaise haute, poussette, baignoire de bain).",
-      "Loué dans son intégralité, l'espace se divise aisément en deux parties disposant chacune d'une télévision, d'une cuisine/séjour, permettant ainsi de profiter d'un espace de travail séparé ou d'une suite parentale indépendante."
+      "Maison avec vue mer à quelques pas de la plage"
     ],
     en: [
-      "House with sea view steps away from the beach",
-      "In Portsall on the Tréompan dune, this charming new house is just steps away from a beautiful sandy beach and on the GR34 hiking trail. The location is ideal for discovering the many activities, leisure and hiking spots in Pays d'Iroise and Pays des Abers. It is 5 minutes from Portsall harbour, Ploudalmézeau town centre and shops.\n\nA welcome guide is available upon your arrival, with all the information you need for a wonderful stay.",
-      "The accommodation includes a small garden on enclosed grounds, 2 private and secure parking spaces, under carport, with specialised charging points for electric vehicles (optional).",
-      "The living areas have a beautiful sea view and open onto a south-facing terrace, furnished for outdoor dining.",
-      "The accommodation features:\n- 2 bedrooms with queen-size beds and 1 bedroom with 3 beds, including 2 bunks (house linen and toiletries provided) with large storage cupboards\n- 2 shower rooms\n- 3 separate toilets.",
-      "We provide free loan of 2 adult bicycles and baby equipment (foldable bed, high chair, pushchair, baby bath)."
+      "House with sea view steps away from the beach"
     ],
     de: [
-      "Haus mit Meerblick nur wenige Schritte vom Strand entfernt",
-      "In Portsall auf der Düne von Tréompan liegt dieses charmante neue Haus nur wenige Schritte von einem wunderschönen Sandstrand entfernt und am GR34-Wanderweg. Die Lage ist ideal, um die vielen Aktivitäten, Freizeit- und Wanderziele in der Pays d'Iroise und Pays des Abers zu entdecken. Es liegt 5 Minuten vom Hafen Portsall, dem Zentrum von Ploudalmézeau und den Geschäften entfernt.\n\nBei Ihrer Ankunft steht Ihnen ein Willkommensführer zur Verfügung mit allen Informationen für einen wunderbaren Aufenthalt.",
-      "Die Unterkunft umfasst einen kleinen Garten auf umschlossenen Grundstücken, 2 private und sichere Parkplätze unter Carport mit speziellen Ladepunkten für Elektrofahrzeuge (optional).",
-      "Die Wohnbereiche bieten einen schönen Meerblick und öffnen sich zu einer nach Süden ausgerichteten Terrasse, eingerichtet für Außendining.",
-      "Die Unterkunft verfügt über:\n- 2 Schlafzimmer mit Queensize-Betten und 1 Schlafzimmer mit 3 Betten, davon 2 Etagenbetten (Bettwäsche und Toilettenartikel bereitgestellt) mit großen Stauraum\n- 2 Badezimmer\n- 3 separate Toiletten.",
-      "Wir stellen kostenlos 2 Erwachsenenfahrräder und Baby-Ausrüstung zur Verfügung (Klappbett, Hochstuhl, Kinderwagen, Babybadewanne)."
+      "Haus mit Meerblick nur wenige Schritte vom Strand entfernt"
     ]
+  },
+  descriptif: {
+    fr: "A Portsall, sur la dune de Tréompan, cette charmante maison neuve se situe à quelques pas d'une grande plage de sable fin et sur le parcours du GR34.\nL'emplacement est idéal pour découvrir les nombreuses activités et lieux de loisirs et de randonnées, dans le pays d'Iroise et des Abers.\n\nElle se trouve à 5 mn du port de Portsall, du centre-ville de Ploudalmézeau et des commerces.\n\nUn livret d'accueil est à votre disposition à votre arrivée, dans lequel vous trouverez toutes les informations nécessaires pour passer un merveilleux séjour.\n\nL'hébergement comprend un petit jardin sur terrain clos, 2 places de stationnement privatives et sécurisées, sous carport, avec prises spécialisées pour le rechargement des véhicules (en option).\n\nVous disposerez de :\n- 2 pièces de vie qui bénéficient d'une belle vue mer et ouvrent sur une terrasse plein sud, aménagée pour profiter des repas en plein air\n- 2 chambres à lits queen size et 1 chambre avec 3 lits, dont 2 superposés (linge maison et toilette fourni) avec grands placards de rangement\n- 2 salles de douche\n- 3 WC séparés.\n\nNous mettons gratuitement à votre disposition 2 vélos adultes et des équipements pour bébé (lit pliant, chaise haute, poussette, baignoire de bain).\n\nLoué dans son'intégralité, l'espace se divise aisément en deux parties disposant chacune d'une télévision, d'une cuisine/séjour, permettant ainsi de profiter d'un espace de travail séparé ou d'une suite parentale indépendante.",
+    en: "In Portsall on the Tréompan dune, this charming new house is just steps away from a beautiful sandy beach and on the GR34 hiking trail. The location is ideal for discovering the many activities, leisure and hiking spots in Pays d'Iroise and Pays des Abers.\n\nIt is 5 minutes from Portsall harbour, Ploudalmézeau town centre and shops.\n\nA welcome guide is available upon your arrival, with all the information you need for a wonderful stay.\n\nThe accommodation includes a small garden on enclosed grounds, 2 private and secure parking spaces, under carport, with specialised charging points for electric vehicles (optional).\n\nYou will have:\n- 2 living rooms with a beautiful sea view opening onto a south-facing terrace, furnished for outdoor dining\n- 2 bedrooms with queen-size beds and 1 bedroom with 3 beds, including 2 bunks (house linen and toiletries provided) with large storage cupboards\n- 2 shower rooms\n- 3 separate toilets.\n\nWe provide free loan of 2 adult bicycles and baby equipment (folding bed, high chair, pushchair, baby bath).\n\nRented in its entirety, the space can easily be divided into two parts, each with a television and kitchen/living area, allowing for a separate workspace or independent master suite.",
+    de: "In Portsall auf der Düne von Tréompan liegt dieses charmante neue Haus nur wenige Schritte von einem wunderschönen Sandstrand entfernt und am GR34-Wanderweg. Die Lage ist ideal, um die vielen Aktivitäten, Freizeit- und Wanderziele in der Pays d'Iroise und Pays des Abers zu entdecken.\n\nEs liegt 5 Minuten vom Hafen Portsall, dem Zentrum von Ploudalmézeau und den Geschäften entfernt.\n\nBei Ihrer Ankunft steht Ihnen ein Willkommensführer zur Verfügung mit allen Informationen für einen wunderbaren Aufenthalt.\n\nDie Unterkunft umfasst einen kleinen Garten auf umschlossenen Grundstücken, 2 private und sichere Parkplätze unter Carport mit speziellen Ladepunkten für Elektrofahrzeuge (optional).\n\nSie verfügen über:\n- 2 Wohnbereiche mit schönem Meerblick, die sich zu einer nach Süden ausgerichteten Terrasse öffnen, eingerichtet für Mahlzeiten im Freien\n- 2 Schlafzimmer mit Queensize-Betten und 1 Schlafzimmer mit 3 Betten, darunter 2 Etagenbetten (Bettwäsche und Toilettenartikel gestellt) mit großen Schränken\n- 2 Badezimmer\n- 3 separate Toiletten.\n\nWir stellen kostenlos 2 Erwachsenenfahrräder und Baby-Ausrüstung zur Verfügung (Klappbett, Hochstuhl, Kinderwagen, Babybadewanne).\n\nVollständig vermietet lässt sich der Raum leicht in zwei Teile teilen, die jeweils über einen Fernseher und eine Küche/Wohnbereich verfügen und so einen separaten Arbeitsbereich oder eine unabhängige Master-Suite ermöglichen."
   },
 
   descriptionHero: {
@@ -349,7 +343,7 @@ const CONFIG = {
   ],
 
   cuisine: [
-    { icon: "🍲", nom: { fr: "autocuiseur vapeur", en: "steam pressure cooker", de: "Dampfkochtopf" } },
+    { icon: "🍲", nom: { fr: "Autocuiseur vapeur", en: "Steam pressure cooker", de: "Dampfkochtopf" } },
     { icon: "🥄", nom: { fr: "Batteur électrique", en: "Electric mixer", de: "Elektrischer Mixer" } },
     { icon: "☕", nom: { fr: "Bouilloire électrique", en: "Electric kettle", de: "Wasserkocher" } },
     { icon: "☕", nom: { fr: "Cafetière électrique", en: "Coffee maker", de: "Kaffeemaschine" } },
@@ -366,11 +360,13 @@ const CONFIG = {
 
   sectionTitles: {
     photos: { fr: "Photos", en: "Photos", de: "Fotos" },
+    descriptif: { fr: "Descriptif", en: "Description", de: "Beschreibung" },
     equipements: { fr: "Prestations", en: "Amenities", de: "Ausstattung" },
     cuisine: { fr: "Cuisine", en: "Kitchen", de: "Küche" },
     contact: { fr: "Contact", en: "Contact", de: "Kontakt" },
     nav: {
       photos: { fr: "Photos", en: "Photos", de: "Fotos" },
+      descriptif: { fr: "Descriptif", en: "Description", de: "Beschreibung" },
       equipements: { fr: "Prestations", en: "Amenities", de: "Ausstattung" },
       cuisine: { fr: "Cuisine", en: "Kitchen", de: "Küche" },
       contact: { fr: "Contact", en: "Contact", de: "Kontakt" },
@@ -450,36 +446,22 @@ function render() {
 
   // Hero
   document.getElementById('hero-title').textContent = CONFIG.titre;
-  document.getElementById('hero-subtitle').innerHTML = CONFIG.sousTitre[lang].map((p, i) => i === 0 ? `<h3>${p}</h3>` : `<p>${p.replace(/\n/g, '<br>')}</p>`).join('<br><br>');
-  const heroDescription = document.getElementById('hero-description');
-  const descriptionText = getText(CONFIG.descriptionHero);
-  heroDescription.textContent = descriptionText;
-  heroDescription.style.display = descriptionText ? 'block' : 'none';
+  document.getElementById('hero-subtitle').innerHTML = `<h3>${CONFIG.sousTitre[lang][0]}</h3>`;
   document.getElementById('hero-badge').textContent = getText(CONFIG.badge);
   if (CONFIG.heroImage) {
     document.getElementById('hero-bg').style.backgroundImage = `url('${CONFIG.heroImage}')`;
   }
 
-  const livretUrl = CONFIG.livretUrl || 'livret.html';
-  const mailSubject = encodeURIComponent(
-    lang === 'fr' ? "Livret d'accueil Ty an aod" : lang === 'en' ? "Ty an aod welcome guide" : "Ty an aod Willkommensführer"
-  );
-  const mailBody = encodeURIComponent(
-    (lang === 'fr' ? "Bonjour,%0A%0AJe vous partage le livret d'accueil du gîte Ty an aod : " :
-     lang === 'en' ? "Hello,%0A%0AHere is the Ty an aod welcome guide: " :
-     "Hallo,%0A%0AHier ist der Ty an aod Willkommensführer: ")
-    + livretUrl + "%0A%0ABien cordialement."
-  );
-  document.getElementById('livret-link').textContent = lang === 'fr' ? 'Consulter le livret' : lang === 'en' ? 'View the guide' : 'Willkommensführer ansehen';
-  document.getElementById('livret-link').href = livretUrl;
-  document.getElementById('mail-link').textContent = lang === 'fr' ? 'Envoyer par email' : lang === 'en' ? 'Send by email' : 'Per E-Mail senden';
-  document.getElementById('mail-link').href = `mailto:${CONFIG.email}?subject=${mailSubject}&body=${mailBody}`;
-
   // Navigation
   document.getElementById('nav-photos').textContent = getText(CONFIG.sectionTitles.nav.photos);
+  document.getElementById('nav-descriptif').textContent = getText(CONFIG.sectionTitles.nav.descriptif);
   document.getElementById('nav-equipements').textContent = getText(CONFIG.sectionTitles.nav.equipements);
   document.getElementById('nav-cuisine').textContent = getText(CONFIG.sectionTitles.nav.cuisine);
   document.getElementById('nav-contact').textContent = getText(CONFIG.sectionTitles.nav.contact);
+
+  // Descriptif
+  document.getElementById('descriptif-title').textContent = getText(CONFIG.sectionTitles.descriptif);
+  document.getElementById('descriptif-text').innerHTML = getText(CONFIG.descriptif).replace(/\n/g, '<br><br>');
 
   // Photos
   document.getElementById('photos-title').textContent = getText(CONFIG.sectionTitles.photos);
