@@ -29,8 +29,6 @@
     background: var(--bg); color: var(--text);
     line-height: 1.6; min-height: 100vh;
   }
-
-  /* HEADER / HERO */
   .hero {
     position: relative;
     min-height: 50vh;
@@ -66,8 +64,6 @@
     background: var(--accent); font-weight: 700; font-size: .9rem;
     margin-right: .5rem; vertical-align: middle;
   }
-
-  /* LANG TOGGLE */
   .lang-toggle {
     position: absolute; top: 1rem; right: 1rem; z-index: 10;
     display: flex; gap: 4px;
@@ -80,15 +76,11 @@
     cursor: pointer; font-weight: 500; transition: background .2s;
   }
   .lang-btn.active { background: rgba(255,255,255,0.3); }
-
-  /* MAIN CONTENT */
   .main { max-width: 600px; margin: 0 auto; padding: 1.5rem; }
   .section-title {
     font-size: .8rem; text-transform: uppercase; letter-spacing: 1.5px;
     color: var(--text-muted); margin: 1.5rem 0 .8rem; font-weight: 600;
   }
-
-  /* NAVIGATION CARDS */
   .nav-grid { display: flex; flex-direction: column; gap: .6rem; }
   .nav-card {
     display: flex; align-items: center; gap: 1rem;
@@ -108,8 +100,6 @@
   .nav-card .card-title { font-weight: 600; font-size: 1rem; }
   .nav-card .card-subtitle { font-size: .85rem; color: var(--text-light); }
   .nav-card .card-arrow { color: var(--text-muted); font-size: 1.2rem; }
-
-  /* PAGE DETAIL */
   .page {
     display: none; max-width: 600px; margin: 0 auto; padding: 0;
     animation: fadeIn .3s ease;
@@ -160,8 +150,6 @@
   .page-body .highlight .label { font-size: .8rem; color: var(--text-light); margin-top: .2rem; }
   .page-body .checklist { list-style: none; margin-left: 0; }
   .page-body .checklist li::before { content: "☑ "; color: var(--success); }
-
-  /* CONTACT BUTTONS */
   .contact-btn {
     display: inline-flex; align-items: center; gap: .5rem;
     background: var(--primary); color: #fff;
@@ -172,21 +160,15 @@
   .contact-btn:hover { background: var(--primary-light); }
   .contact-btn.secondary { background: var(--accent); }
   .contact-btn.secondary:hover { background: var(--accent-light); }
-
-  /* FOOTER */
   footer {
     text-align: center; padding: 2rem 1rem;
     color: var(--text-muted); font-size: .8rem;
   }
-
-  /* HOME LINK */
   #home-view { display: block; }
   #home-view.hidden { display: none; }
 </style>
 </head>
 <body>
-
-<!-- ====== HOME VIEW ====== -->
 <div id="home-view">
   <div class="hero">
     <div class="hero-bg" id="hero-bg"></div>
@@ -209,8 +191,6 @@
   </div>
   <footer id="footer"></footer>
 </div>
-
-<!-- ====== PAGE DETAIL VIEW ====== -->
 <div class="page" id="page-detail">
   <div class="page-header">
     <button class="back-btn" onclick="goHome()">←</button>
@@ -220,1067 +200,41 @@
   <div class="page-body" id="page-body"></div>
   <footer>Ty an aod — Livret d'accueil</footer>
 </div>
-
 <script>
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║  📝 CONFIGURATION DU LIVRET D'ACCUEIL                          ║
-// ║  Pascal : modifie les textes ci-dessous pour personnaliser !    ║
-// ║  Chaque section a une version FR, EN, DE et ES.                 ║
-// ╚══════════════════════════════════════════════════════════════════╝
-
+let currentLang = 'fr';
 const CONFIG = {
-
-  // ── Nom du logement ──
   titre: "Ty an aod",
+  hostInitials: "PM",
+  heroImage: "IMG_1303.JPG",
   tagline: {
     fr: "Votre maison face à la mer, sur la dune de Tréompan",
     en: "Your home by the sea, on the Tréompan dune",
     de: "Ihr Haus am Meer, auf der Düne von Tréompan",
-    es: "Su casa frente al mar, sobre la duna de Tréompan",
+    es: "Su casa frente al mar, sobre la duna de Tréompan"
   },
-
-  // ── Image de fond hero ──
-  heroImage: "IMG_1303.JPG",
-
-  // ── Message de bienvenue ──
   bienvenue: {
-    fr: `Bienvenue à "Ty an aod" !\nNous sommes Pascal et Marylène, un couple natif du Pays d'Iroise, passionné par les rencontres et les voyages. Nous avons à cœur d'offrir à nos voyageurs une expérience aussi agréable que possible.\nAccueillants, disponibles et discrets à la fois, nous aimons que chacun se sente ici chez lui.`,
-    en: `Welcome to "Ty an aod"!\nWe are Pascal and Marylène, a couple from the Pays d'Iroise, passionate about meeting people and travelling. We are committed to offering our guests the most pleasant experience possible.\nWarm, available yet discreet, we want everyone to feel at home here.\nWe look forward to welcoming you!`,
-    de: `Willkommen in "Ty an aod"!\nWir sind Pascal und Marylène, ein Paar aus dem Pays d'Iroise, leidenschaftlich für Begegnungen und Reisen. Wir möchten unseren Gästen ein möglichst angenehmes Erlebnis bieten.\nGastfreundlich, erreichbar und zugleich diskret – wir möchten, dass sich jeder hier wie zu Hause fühlt.\nWir freuen uns darauf, Sie bald zu begrüßen!`,
-    es: `¡Bienvenido a "Ty an aod"!\nSomos Pascal y Marylène, una pareja del Pays d'Iroise, apasionados por los encuentros y los viajes. Nos esforzamos por ofrecer a nuestros huéspedes una experiencia lo más agradable posible.\nAcogedores, disponibles y discretos a la vez, queremos que cada uno se sienta aquí como en casa.\n¡Esperamos darle la bienvenida pronto!`,
+    fr: "Bienvenue à Ty an aod !\nNous sommes Pascal et Marylène, un couple natif du Pays d'Iroise, passionné par les rencontres et les voyages. Nous avons à cœur d'offrir à nos voyageurs une expérience aussi agréable que possible.\nAccueillants, disponibles et discrets à la fois, nous aimons que chacun se sente ici chez lui.",
+    en: "Welcome to Ty an aod!\nWe are Pascal and Marylène, a couple from the Pays d'Iroise, passionate about meeting people and travelling. We are committed to offering our guests the most pleasant experience possible.\nWarm, available yet discreet, we want everyone to feel at home here.\nWe look forward to welcoming you!",
+    de: "Willkommen in Ty an aod!\nWir sind Pascal und Marylène, ein Paar aus dem Pays d'Iroise, leidenschaftlich für Begegnungen und Reisen. Wir möchten unseren Gästen ein möglichst angenehmes Erlebnis bieten.\nGastfreundlich, erreichbar und zugleich diskret – wir möchten, dass sich jeder hier wie zu Hause fühlt.\nWir freuen uns darauf, Sie bald zu begrüßen!",
+    es: "¡Bienvenido a Ty an aod!\nSomos Pascal y Marylène, una pareja del Pays d'Iroise, apasionados por los encuentros y los viajes. Nos esforzamos por ofrecer a nuestros huéspedes una experiencia lo más agradable posible.\nAcogedores, disponibles y discretos a la vez, queremos que cada uno se sienta aquí como en casa.\n¡Esperamos darle la bienvenida pronto!"
   },
-
-  // ── Initiales de l'hôte ──
-  hostInitials: "PM",
-
-  // ── Label du guide ──
   guideTitle: {
     fr: "Livret d'accueil",
     en: "Welcome guide",
     de: "Willkommensführer",
-    es: "Guía de bienvenida",
+    es: "Guía de bienvenida"
   },
-
-  // ── Pied de page ──
   footer: {
     fr: "Ty an aod — Livret d'accueil digital",
     en: "Ty an aod — Digital welcome guide",
     de: "Ty an aod — Digitaler Willkommensführer",
-    es: "Ty an aod — Guía de bienvenida digital",
-  },
-
-  // ═══════════════════════════════════════════════
-  // ══ SECTIONS DU LIVRET
-  // ═══════════════════════════════════════════════
-  sections: [
-
-    // ── VOS HÔTES ──
-    {
-      icon: "👤",
-      title: { fr: "Vos hôtes", en: "Your hosts", de: "Ihre Gastgeber", es: "Sus anfitriones" },
-      subtitle: { fr: "Pascal et Marylène", en: "Pascal and Marylène", de: "Pascal und Marylène", es: "Pascal y Marylène" },
-      content: {
-        fr: `
-          <div style="text-align:center;margin-bottom:1.2rem"><img src="IMG_1303.JPG" alt="Pascal et Marylène" style="width:100%;max-width:400px;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.12)"></div>
-          <h3>Pascal et Marylène</h3>
-          <p>Nous sommes un couple natif du Pays d'Iroise, passionné par les rencontres et les voyages, et nous avons à cœur d'offrir à nos voyageurs une expérience aussi agréable que possible.</p>
-          <p>Accueillants, disponibles et discrets à la fois, nous aimons que chacun se sente ici chez lui.</p>
-          <p>Nous avons pensé notre logement avec soin, en privilégiant le confort, la proximité de la mer et les petits détails qui font la différence.</p>
-          <p>Que vous soyez de passage pour découvrir la région ou en déplacement professionnel, nous serons ravis de vous conseiller et de partager avec vous nos bonnes adresses locales.</p>
-          <p>Respectueux et à l'écoute, nous faisons toujours de notre mieux pour garantir un séjour fluide, chaleureux et sans souci.</p>
-          <h3>Nous contacter</h3>
-          <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
-          <p>📞 +33(0)660322393</p>
-          <div class="info-box">En cas d'urgence, n'hésitez pas à nous contacter à toute heure.</div>
-        `,
-        en: `
-          <div style="text-align:center;margin-bottom:1.2rem"><img src="IMG_1303.JPG" alt="Pascal and Marylène" style="width:100%;max-width:400px;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.12)"></div>
-          <h3>Pascal and Marylène</h3>
-          <p>We are a couple from the Pays d'Iroise, passionate about meeting people and travelling, and we are committed to offering our guests the most pleasant experience possible.</p>
-          <p>Warm, available yet discreet, we want everyone to feel at home here.</p>
-          <p>We have carefully designed our accommodation, focusing on comfort, proximity to the sea and the little details that make the difference.</p>
-          <p>Whether you are visiting to discover the region or travelling for work, we will be happy to advise you and share our favourite local spots.</p>
-          <p>Respectful and attentive, we always do our best to ensure a smooth, warm and worry-free stay.</p>
-          <h3>Contact us</h3>
-          <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
-          <div class="info-box">In case of emergency, don't hesitate to contact us at any time.</div>
-        `,
-        de: `
-          <div style="text-align:center;margin-bottom:1.2rem"><img src="IMG_1303.JPG" alt="Pascal und Marylène" style="width:100%;max-width:400px;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.12)"></div>
-          <h3>Pascal und Marylène</h3>
-          <p>Wir sind ein Paar aus dem Pays d'Iroise, leidenschaftlich für Begegnungen und Reisen, und wir möchten unseren Gästen ein möglichst angenehmes Erlebnis bieten.</p>
-          <p>Gastfreundlich, erreichbar und zugleich diskret – wir möchten, dass sich jeder hier wie zu Hause fühlt.</p>
-          <p>Wir haben unsere Unterkunft mit Sorgfalt gestaltet, mit Fokus auf Komfort, Meeresnähe und die kleinen Details, die den Unterschied machen.</p>
-          <p>Ob Sie die Region entdecken oder beruflich unterwegs sind – wir beraten Sie gerne und teilen unsere lokalen Geheimtipps mit Ihnen.</p>
-          <h3>Kontakt</h3>
-          <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
-          <div class="info-box">Im Notfall zögern Sie nicht, uns jederzeit zu kontaktieren.</div>
-        `,
-        es: `
-          <div style="text-align:center;margin-bottom:1.2rem"><img src="IMG_1303.JPG" alt="Pascal y Marylène" style="width:100%;max-width:400px;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.12)"></div>
-          <h3>Pascal y Marylène</h3>
-          <p>Somos una pareja del Pays d'Iroise, apasionados por los encuentros y los viajes, y nos esforzamos por ofrecer a nuestros huéspedes una experiencia lo más agradable posible.</p>
-          <p>Acogedores, disponibles y discretos a la vez, queremos que cada uno se sienta aquí como en casa.</p>
-          <p>Hemos diseñado nuestro alojamiento con esmero, priorizando el confort, la cercanía del mar y los pequeños detalles que marcan la diferencia.</p>
-          <p>Ya sea que esté de paso para descubrir la región o en viaje de negocios, estaremos encantados de aconsejarle y compartir nuestras mejores direcciones locales.</p>
-          <h3>Contacto</h3>
-          <p>✉️ <a href="mailto:pascaljaffredou@gmail.com">pascaljaffredou@gmail.com</a></p>
-          <div class="info-box">En caso de emergencia, no dude en contactarnos a cualquier hora.</div>
-        `,
-      },
-    },
-
-    // ── ACCÈS AU LOGEMENT ──
-    {
-      icon: "🔑",
-      title: { fr: "Accès au logement", en: "Getting there", de: "Zugang zur Unterkunft", es: "Acceso al alojamiento" },
-      subtitle: { fr: "Adresse et comment arriver", en: "Address and directions", de: "Adresse und Anfahrt", es: "Dirección y cómo llegar" },
-      content: {
-        fr: `
-          <h3>Adresse</h3>
-          <p>📍 <strong>Ty an aod, 27 chemin des Dunes, Portsall, 29830 Ploudalmézeau</strong></p>
-          <p>Code+ Google : <strong>H888+J45 Ploudalmézeau</strong> — <a href="https://maps.google.com/?q=H888%2BJ45+Ploudalmézeau" target="_blank" rel="noopener">Voir sur Google Maps</a></p>
-          <h3>Pour s'y rendre</h3>
-          <ul>
-            <li>🚗 <strong>En voiture :</strong> à 6 minutes de Ploudalmézeau par la D26 et le Chemin des Dunes. À 3 minutes du port de Portsall.</li>
-            <li>🚆 <strong>Depuis Brest :</strong> 35 minutes depuis la gare de Brest ou l'aéroport Brest Bretagne. Location de voiture disponible. Taxi : environ 50 €.</li>
-          </ul>
-          <h3>Se garer</h3>
-          <p>Plusieurs places gratuites, sécurisées et abritées devant la maison.</p>
-          <p>🔌 Prises spécialisées pour véhicules électriques (option).</p>
-          <h3>Accès à la maison</h3>
-          <p>L'accès est libre et autonome, munis du code que nous vous fournirons avant votre arrivée. Serrures motorisées.</p>
-          <div class="info-box">💡 Le code d'accès vous sera communiqué avant votre arrivée.</div>
-        `,
-        en: `
-          <h3>Address</h3>
-          <p>📍 <strong>Ty an aod, 27 chemin des Dunes, Portsall, 29830 Ploudalmézeau</strong></p>
-          <p>Google Plus Code: <strong>H888+J45 Ploudalmézeau</strong> — <a href="https://maps.google.com/?q=H888%2BJ45+Ploudalmézeau" target="_blank" rel="noopener">View on Google Maps</a></p>
-          <h3>Getting there</h3>
-          <ul>
-            <li>🚗 <strong>By car:</strong> 6 minutes from Ploudalmézeau via D26 and Chemin des Dunes. 3 minutes from Portsall harbour.</li>
-            <li>🚆 <strong>From Brest:</strong> 35 minutes from Brest station or Brest Bretagne airport. Car rental available. Taxi: approx. €50.</li>
-          </ul>
-          <h3>Parking</h3>
-          <p>Several free, secure and sheltered spaces in front of the house.</p>
-          <p>🔌 Electric vehicle charging points available (option).</p>
-          <h3>House access</h3>
-          <p>Self check-in with the code we will provide before your arrival. Motorised locks.</p>
-          <div class="info-box">💡 The access code will be sent before your arrival.</div>
-        `,
-        de: `
-          <h3>Adresse</h3>
-          <p>📍 <strong>Ty an aod, 27 chemin des Dunes, Portsall, 29830 Ploudalmézeau</strong></p>
-          <p>Google Plus Code: <strong>H888+J45 Ploudalmézeau</strong> — <a href="https://maps.google.com/?q=H888%2BJ45+Ploudalmézeau" target="_blank" rel="noopener">Auf Google Maps ansehen</a></p>
-          <h3>Anfahrt</h3>
-          <ul>
-            <li>🚗 <strong>Mit dem Auto:</strong> 6 Minuten von Ploudalmézeau über die D26 und den Chemin des Dunes. 3 Minuten vom Hafen Portsall.</li>
-            <li>🚆 <strong>Ab Brest:</strong> 35 Minuten vom Bahnhof Brest oder Flughafen Brest Bretagne. Mietwagen verfügbar. Taxi: ca. 50 €.</li>
-          </ul>
-          <h3>Parken</h3>
-          <p>Mehrere kostenlose, sichere und überdachte Stellplätze vor dem Haus.</p>
-          <p>🔌 Ladestationen für Elektrofahrzeuge verfügbar (Option).</p>
-          <h3>Zugang zum Haus</h3>
-          <p>Selbstständiger Zugang mit dem Code, den wir Ihnen vor Ihrer Ankunft mitteilen. Motorisierte Schlösser.</p>
-          <div class="info-box">💡 Der Zugangscode wird Ihnen vor Ihrer Ankunft mitgeteilt.</div>
-        `,
-        es: `
-          <h3>Dirección</h3>
-          <p>📍 <strong>Ty an aod, 27 chemin des Dunes, Portsall, 29830 Ploudalmézeau</strong></p>
-          <p>Código Google Plus: <strong>H888+J45 Ploudalmézeau</strong> — <a href="https://maps.google.com/?q=H888%2BJ45+Ploudalmézeau" target="_blank" rel="noopener">Ver en Google Maps</a></p>
-          <h3>Cómo llegar</h3>
-          <ul>
-            <li>🚗 <strong>En coche:</strong> a 6 minutos de Ploudalmézeau por la D26 y el Chemin des Dunes. A 3 minutos del puerto de Portsall.</li>
-            <li>🚆 <strong>Desde Brest:</strong> 35 minutos desde la estación de Brest o el aeropuerto Brest Bretagne. Alquiler de coches disponible. Taxi: aprox. 50 €.</li>
-          </ul>
-          <h3>Aparcamiento</h3>
-          <p>Varias plazas gratuitas, seguras y cubiertas frente a la casa.</p>
-          <p>🔌 Puntos de carga para vehículos eléctricos disponibles (opción).</p>
-          <h3>Acceso a la casa</h3>
-          <p>Acceso libre y autónomo con el código que le proporcionaremos antes de su llegada. Cerraduras motorizadas.</p>
-          <div class="info-box">💡 El código de acceso le será comunicado antes de su llegada.</div>
-        `,
-      },
-    },
-
-    // ── ARRIVÉE / DÉPART ──
-    {
-      icon: "🕐",
-      title: { fr: "Arrivée / Départ", en: "Check-in / Check-out", de: "An- / Abreise", es: "Llegada / Salida" },
-      subtitle: { fr: "Horaires et consignes", en: "Times and instructions", de: "Zeiten und Hinweise", es: "Horarios e instrucciones" },
-      content: {
-        fr: `
-          <div class="highlight">
-            <div class="big">16h00</div>
-            <div class="label">Arrivée à partir de</div>
-          </div>
-          <p>Merci de nous indiquer l'heure de votre arrivée estimée afin de pouvoir mieux vous accueillir. Nous sommes à votre disposition pour tout problème particulier.</p>
-          <h3>Dépose de bagages</h3>
-          <p>En cas d'arrivée anticipée ou de départ tardif, nous mettrons à votre disposition un espace sécurisé : contactez-nous pour convenir des modalités.</p>
-          <div class="highlight">
-            <div class="big">10h00</div>
-            <div class="label">Départ au plus tard</div>
-          </div>
-          <h3>Check-list avant départ</h3>
-          <ul class="checklist">
-            <li>Vider les poubelles dans les bacs de collecte</li>
-            <li>Vérifier que toutes les portes et fenêtres soient bien fermées</li>
-            <li>Éteindre les lumières et les appareils électriques</li>
-            <li>Déposer le linge de toilette et de table dans le bac à douche</li>
-          </ul>
-        `,
-        en: `
-          <div class="highlight">
-            <div class="big">3:00 PM</div>
-            <div class="label">Check-in from</div>
-          </div>
-          <p>Please let us know your estimated arrival time so we can better welcome you. We are available for any particular issue.</p>
-          <h3>Luggage drop-off</h3>
-          <p>If you arrive early or leave late, we can provide a secure storage space: contact us to arrange.</p>
-          <div class="highlight">
-            <div class="big">10:00 AM</div>
-            <div class="label">Check-out before</div>
-          </div>
-          <h3>Departure checklist</h3>
-          <ul class="checklist">
-            <li>Empty bins into the collection containers</li>
-            <li>Make sure all doors and windows are properly closed</li>
-            <li>Turn off lights and electrical appliances</li>
-          </ul>
-        `,
-        de: `
-          <div class="highlight">
-            <div class="big">15:00</div>
-            <div class="label">Anreise ab</div>
-          </div>
-          <p>Bitte teilen Sie uns Ihre voraussichtliche Ankunftszeit mit, damit wir Sie besser empfangen können. Wir stehen Ihnen bei Problemen zur Verfügung.</p>
-          <h3>Gepäckaufbewahrung</h3>
-          <p>Bei früher Ankunft oder spätem Abreise stellen wir Ihnen einen sicheren Aufbewahrungsraum zur Verfügung: kontaktieren Sie uns.</p>
-          <div class="highlight">
-            <div class="big">10:00</div>
-            <div class="label">Abreise vor</div>
-          </div>
-          <h3>Checkliste vor der Abreise</h3>
-          <ul class="checklist">
-            <li>Müll in die Sammeltonnen entsorgen</li>
-            <li>Alle Türen und Fenster ordnungsgemäß schließen</li>
-            <li>Lichter und elektrische Geräte ausschalten</li>
-          </ul>
-        `,
-        es: `
-          <div class="highlight">
-            <div class="big">15:00</div>
-            <div class="label">Llegada a partir de</div>
-          </div>
-          <p>Por favor, indíquenos su hora estimada de llegada para poder recibirle mejor. Estamos a su disposición para cualquier problema.</p>
-          <h3>Depósito de equipaje</h3>
-          <p>En caso de llegada anticipada o salida tardía, pondremos a su disposición un espacio seguro: contáctenos para acordar los detalles.</p>
-          <div class="highlight">
-            <div class="big">10:00</div>
-            <div class="label">Salida antes de</div>
-          </div>
-          <h3>Lista de verificación antes de la salida</h3>
-          <ul class="checklist">
-            <li>Vaciar las papeleras en los contenedores de recogida</li>
-            <li>Comprobar que todas las puertas y ventanas estén bien cerradas</li>
-            <li>Apagar luces y aparatos eléctricos</li>
-          </ul>
-        `,
-      },
-    },
-
-    // ── RÈGLEMENT INTÉRIEUR ──
-    {
-      icon: "📋",
-      title: { fr: "Règlement intérieur", en: "House rules", de: "Hausordnung", es: "Normas de la casa" },
-      subtitle: { fr: "Merci de respecter ces règles", en: "Please respect these rules", de: "Bitte beachten Sie diese Regeln", es: "Por favor respete estas normas" },
-      content: {
-        fr: `
-          <h3>Règles de la maison</h3>
-          <ul>
-            <li>🚭 Strictement non fumeur à l'intérieur</li>
-            <li>🐾 Malheureusement, nous n'acceptons pas les animaux de compagnie</li>
-            <li>🔇 Merci de ne pas faire de bruit après 22h et de respecter le voisinage</li>
-            <li>🎉 Pas de fêtes ou d'événements, pas d'enterrement de vie de jeunes mariés</li>
-            <li>👥 Respect strict du nombre d'occupants convenus lors de la location</li>
-            <li>Ne pas déplacer la vaisselle et les meubles</li>
-          </ul>
-          <h3>Recharge véhicules électriques</h3>
-          <p>Les prises de recharge pour véhicules électriques sont en option et viennent en sus, en paiement séparé selon le comptage dédié.</p>
-          <div class="warn-box">⚠️ Tout manquement grave au règlement pourra entraîner la fin anticipée du séjour.</div>
-        `,
-        en: `
-          <h3>House rules</h3>
-          <ul>
-            <li>🚭 Strictly no smoking indoors</li>
-            <li>🐾 Unfortunately, pets are not allowed</li>
-            <li>🔇 No noise after 10 PM — please respect the neighbourhood</li>
-            <li>🎉 No parties or events, no stag/hen parties</li>
-            <li>👥 Strict respect of the agreed number of occupants</li>
-          </ul>
-          <h3>Electric vehicle charging</h3>
-          <p>EV charging points are available as an option, billed separately based on a dedicated meter.</p>
-          <div class="warn-box">⚠️ Serious violations of the rules may result in early termination of the stay.</div>
-        `,
-        de: `
-          <h3>Hausordnung</h3>
-          <ul>
-            <li>🚭 Striktes Rauchverbot im Haus</li>
-            <li>🐾 Leider sind Haustiere nicht erlaubt</li>
-            <li>🔇 Kein Lärm nach 22 Uhr — bitte Rücksicht auf die Nachbarschaft</li>
-            <li>🎉 Keine Partys oder Veranstaltungen, keine Junggesellen-Abschiede</li>
-            <li>👥 Strikte Einhaltung der vereinbarten Personenanzahl</li>
-          </ul>
-          <h3>Elektrofahrzeug-Ladung</h3>
-          <p>Ladestationen sind optional verfügbar und werden separat nach Verbrauch abgerechnet.</p>
-          <div class="warn-box">⚠️ Schwere Verstöße gegen die Hausordnung können zur vorzeitigen Beendigung des Aufenthalts führen.</div>
-        `,
-        es: `
-          <h3>Normas de la casa</h3>
-          <ul>
-            <li>🚭 Estrictamente prohibido fumar en el interior</li>
-            <li>🐾 Lamentablemente, no se admiten mascotas</li>
-            <li>🔇 No hacer ruido después de las 22h — respetar el vecindario</li>
-            <li>🎉 No se permiten fiestas ni eventos, ni despedidas de soltero/a</li>
-            <li>👥 Respeto estricto del número de ocupantes acordado</li>
-          </ul>
-          <h3>Carga de vehículos eléctricos</h3>
-          <p>Los puntos de carga para vehículos eléctricos son opcionales y se facturan por separado según el contador dedicado.</p>
-          <div class="warn-box">⚠️ El incumplimiento grave de las normas puede suponer la finalización anticipada de la estancia.</div>
-        `,
-      },
-    },
-
-    // ── WI-FI ──
-    {
-      icon: "📶",
-      title: { fr: "Wi-Fi", en: "Wi-Fi", de: "WLAN", es: "Wi-Fi" },
-      subtitle: { fr: "Réseau et mot de passe", en: "Network and password", de: "Netzwerk und Passwort", es: "Red y contraseña" },
-      content: {
-        fr: `
-          <h3>Connexion Wi-Fi</h3>
-          <div class="highlight">
-            <div class="label">Réseau</div>
-            <div class="big">Meteor-E6FA7023</div>
-          </div>
-          <div class="highlight">
-            <div class="label">Mot de passe</div>
-            <div class="big" style="font-size:1.1rem;letter-spacing:1px">7FKdKN2KPfXrXPJb</div>
-          </div>
-          <p>Un QR-Code à flasher est à votre disposition dans la pièce de vie.</p>
-        `,
-        en: `
-          <h3>Wi-Fi connection</h3>
-          <div class="highlight">
-            <div class="label">Network</div>
-            <div class="big">Meteor-E6FA7023</div>
-          </div>
-          <div class="highlight">
-            <div class="label">Password</div>
-            <div class="big" style="font-size:1.1rem;letter-spacing:1px">7FKdKN2KPfXrXPJb</div>
-          </div>
-        `,
-        de: `
-          <h3>WLAN-Verbindung</h3>
-          <div class="highlight">
-            <div class="label">Netzwerk</div>
-            <div class="big">Meteor-E6FA7023</div>
-          </div>
-          <div class="highlight">
-            <div class="label">Passwort</div>
-            <div class="big" style="font-size:1.1rem;letter-spacing:1px">7FKdKN2KPfXrXPJb</div>
-          </div>
-        `,
-        es: `
-          <h3>Conexión Wi-Fi</h3>
-          <div class="highlight">
-            <div class="label">Red</div>
-            <div class="big">Meteor-E6FA7023</div>
-          </div>
-          <div class="highlight">
-            <div class="label">Contraseña</div>
-            <div class="big" style="font-size:1.1rem;letter-spacing:1px">7FKdKN2KPfXrXPJb</div>
-          </div>
-        `,
-      },
-    },
-
-    // ── ÉQUIPEMENTS ──
-    {
-      icon: "🏠",
-      title: { fr: "Équipements", en: "Amenities", de: "Ausstattung", es: "Equipamientos" },
-      subtitle: { fr: "Tout le confort de la maison", en: "All the comforts of home", de: "Alle Annehmlichkeiten", es: "Todo el confort del hogar" },
-      content: {
-        fr: `
-          <h3>Équipements généraux</h3>
-          <ul>
-            <li>📺 Télévision connectée à écran plat</li>
-            <li>👔 Fer à repasser et table à repasser de voyage</li>
-            <li>🧺 Lave-linge et sèche-linge</li>
-          </ul>
-          <h3>Pour les jeunes enfants</h3>
-          <ul>
-            <li>Chaise haute</li>
-            <li>Baignoire bébé</li>
-            <li>Lit parapluie</li>
-            <li>Jeux</li>
-            <li>Poussette canne</li>
-          </ul>
-          <h3>Extérieur</h3>
-          <ul>
-            <li>🪑 Salon de terrasse</li>
-            <li>🍖 Barbecue électrique</li>
-            <li>🚲 2 vélos à disposition</li>
-          </ul>
-        `,
-        en: `
-          <h3>General amenities</h3>
-          <ul>
-            <li>📺 Smart flat-screen TV</li>
-            <li>👔 Iron and travel ironing board</li>
-            <li>🧺 Washing machine and tumble dryer</li>
-          </ul>
-          <h3>For young children</h3>
-          <ul>
-            <li>High chair</li>
-            <li>Baby bath</li>
-            <li>Travel cot</li>
-            <li>Games</li>
-          </ul>
-          <h3>Outdoor</h3>
-          <ul>
-            <li>🪑 Terrace lounge furniture</li>
-            <li>🍖 Electric barbecue</li>
-            <li>🚲 2 bicycles available</li>
-          </ul>
-        `,
-        de: `
-          <h3>Allgemeine Ausstattung</h3>
-          <ul>
-            <li>📺 Smart-Flachbildfernseher</li>
-            <li>👔 Bügeleisen und Reisebügelbrett</li>
-            <li>🧺 Waschmaschine und Trockner</li>
-          </ul>
-          <h3>Für Kleinkinder</h3>
-          <ul>
-            <li>Hochstuhl</li>
-            <li>Babybadewanne</li>
-            <li>Reisebett</li>
-            <li>Spiele</li>
-          </ul>
-          <h3>Außenbereich</h3>
-          <ul>
-            <li>🪑 Terrassenmöbel</li>
-            <li>🍖 Elektrogrill</li>
-            <li>🚲 2 Fahrräder zur Verfügung</li>
-          </ul>
-        `,
-        es: `
-          <h3>Equipamiento general</h3>
-          <ul>
-            <li>📺 TV de pantalla plana conectada</li>
-            <li>👔 Plancha y tabla de planchar de viaje</li>
-            <li>🧺 Lavadora y secadora</li>
-          </ul>
-          <h3>Para niños pequeños</h3>
-          <ul>
-            <li>Trona</li>
-            <li>Bañera para bebé</li>
-            <li>Cuna de viaje</li>
-            <li>Juegos</li>
-          </ul>
-          <h3>Exterior</h3>
-          <ul>
-            <li>🪑 Muebles de terraza</li>
-            <li>🍖 Barbacoa eléctrica</li>
-            <li>🚲 2 bicicletas disponibles</li>
-          </ul>
-        `,
-      },
-    },
-
-    // ── CUISINE ──
-    {
-      icon: "🍳",
-      title: { fr: "Cuisine", en: "Kitchen", de: "Küche", es: "Cocina" },
-      subtitle: { fr: "Tout équipée", en: "Fully equipped", de: "Voll ausgestattet", es: "Totalmente equipada" },
-      content: {
-        fr: `
-          <div class="info-box">💡 La cuisine est entièrement équipée. Merci de la laisser propre et rangée à votre départ.</div>
-        `,
-        en: `
-          <h3>Kitchen equipment</h3>
-          <ul>
-            <li>Dishwasher</li>
-            <li>Oven</li>
-            <li>Microwave</li>
-            <li>Electric kettle</li>
-            <li>Capsule coffee machine</li>
-            <li>Filter coffee machine</li>
-            <li>Toaster</li>
-            <li>Electric mixer</li>
-            <li>Citrus press</li>
-            <li>Dishes and utensils</li>
-          </ul>
-          <div class="info-box">💡 Please leave the kitchen clean and tidy when you leave.</div>
-        `,
-        de: `
-          <h3>Küchenausstattung</h3>
-          <ul>
-            <li>Geschirrspüler</li>
-            <li>Backofen</li>
-            <li>Mikrowelle</li>
-            <li>Wasserkocher</li>
-            <li>Kapsel-Kaffeemaschine</li>
-            <li>Filter-Kaffeemaschine</li>
-            <li>Toaster</li>
-            <li>Elektrischer Mixer</li>
-            <li>Zitruspresse</li>
-            <li>Geschirr und Besteck</li>
-          </ul>
-          <div class="info-box">💡 Bitte hinterlassen Sie die Küche sauber und aufgeräumt.</div>
-        `,
-        es: `
-          <h3>Equipamiento de cocina</h3>
-          <ul>
-            <li>Lavavajillas</li>
-            <li>Horno</li>
-            <li>Microondas</li>
-            <li>Hervidor eléctrico</li>
-            <li>Cafetera de cápsulas</li>
-            <li>Cafetera de filtro</li>
-            <li>Tostadora</li>
-            <li>Batidora eléctrica</li>
-            <li>Exprimidor</li>
-            <li>Vajilla y utensilios</li>
-          </ul>
-          <div class="info-box">💡 Por favor, deje la cocina limpia y ordenada antes de irse.</div>
-        `,
-      },
-    },
-
-    // ── LINGE ──
-    {
-      icon: "🛏️",
-      title: { fr: "Linge", en: "Linen", de: "Wäsche", es: "Ropa de cama" },
-      subtitle: { fr: "Draps, serviettes et lave-linge", en: "Sheets, towels and laundry", de: "Bettwäsche, Handtücher und Waschmaschine", es: "Sábanas, toallas y lavadora" },
-      content: {
-        fr: `
-          <h3>Linge fourni</h3>
-          <p>Les serviettes de toilette et le linge de lit sont fournis pour le nombre d'occupants prévu lors de la location, renouvelés chaque semaine.</p>
-          <p>Les lits sont faits à votre arrivée.</p>
-        `,
-        en: `
-          <h3>Linen provided</h3>
-          <p>Towels and bed linen are provided for the agreed number of guests, renewed weekly.</p>
-          <p>Beds are made upon your arrival.</p>
-        `,
-        de: `
-          <h3>Bereitgestellte Wäsche</h3>
-          <p>Handtücher und Bettwäsche werden für die vereinbarte Personenzahl bereitgestellt und wöchentlich erneuert.</p>
-          <p>Die Betten sind bei Ihrer Ankunft bezogen.</p>
-        `,
-        es: `
-          <h3>Ropa de cama incluida</h3>
-          <p>Las toallas y la ropa de cama se proporcionan para el número de ocupantes acordado, renovándose semanalmente.</p>
-          <p>Las camas están hechas a su llegada.</p>
-        `,
-      },
-    },
-
-    // ── CHAUFFAGE / VENTILATION ──
-    {
-      icon: "🌡️",
-      title: { fr: "Chauffage / Ventilation", en: "Heating / Ventilation", de: "Heizung / Belüftung", es: "Calefacción / Ventilación" },
-      subtitle: { fr: "Confort thermique", en: "Thermal comfort", de: "Wärmekomfort", es: "Confort térmico" },
-      content: {
-        fr: `
-          <h3>Chauffage</h3>
-          <p>Le chauffage est automatique, par le sol, et réglé sur <strong>19°C</strong> dans toutes les zones de la maison.</p>
-          <h3>Salle de douche</h3>
-          <p>Sèche-serviettes dans la salle de douche.</p>
-          <h3>Ventilation</h3>
-          <p>Un ventilateur de plafond avec télécommande est installé dans la pièce cathédrale.</p>
-        `,
-        en: `
-          <h3>Heating</h3>
-          <p>Automatic underfloor heating, set to <strong>19°C</strong> in all areas of the house.</p>
-          <h3>Shower room</h3>
-          <p>Heated towel rail in the shower room.</p>
-          <h3>Ventilation</h3>
-          <p>A ceiling fan with remote control is installed in the cathedral room.</p>
-        `,
-        de: `
-          <h3>Heizung</h3>
-          <p>Automatische Fußbodenheizung, auf <strong>19°C</strong> in allen Bereichen des Hauses eingestellt.</p>
-          <h3>Duschraum</h3>
-          <p>Handtuchwärmer im Duschraum.</p>
-          <h3>Belüftung</h3>
-          <p>Ein Deckenventilator mit Fernbedienung ist im Kathedralraum installiert.</p>
-        `,
-        es: `
-          <h3>Calefacción</h3>
-          <p>Calefacción automática por suelo radiante, regulada a <strong>19°C</strong> en todas las zonas de la casa.</p>
-          <h3>Cuarto de ducha</h3>
-          <p>Toallero radiante en el cuarto de ducha.</p>
-          <h3>Ventilación</h3>
-          <p>Un ventilador de techo con mando a distancia está instalado en la sala catedral.</p>
-        `,
-      },
-    },
-
-    // ── AUX ALENTOURS ──
-    {
-      icon: "🗺️",
-      title: { fr: "Aux alentours", en: "Around the area", de: "In der Umgebung", es: "Alrededores" },
-      subtitle: { fr: "Activités et découvertes", en: "Activities and discoveries", de: "Aktivitäten und Entdeckungen", es: "Actividades y descubrimientos" },
-      content: {
-        fr: `
-          <p>Nous avons disposé de nombreux flyers qui vous donneront une multitude de lieux de balades et d'activités.</p>
-          <h3>Plages à proximité</h3>
-          <ul>
-            <li>🏖️ <strong>Plage de Tréompan</strong> — sous vos fenêtres !</li>
-            <li>🏄 <strong>Plage des 3 Moutons</strong> — spot réputé pour les sports de glisse, école de kite</li>
-            <li>🏄 <strong>Spot de Penfoul</strong> — surf et bodyboard, école de surf réputée</li>
-          </ul>
-          <h3>Activités</h3>
-          <ul>
-            <li>🤿 Écoles de plongée sous-marine</li>
-            <li>⛵ Écoles de voile et de kayak</li>
-            <li>🚶 Le sentier GR34 longe la côte — balades et randonnées</li>
-          </ul>
-          <h3>Îles</h3>
-          <p>Plusieurs îles accessibles depuis l'Aber Ildut ou Le Conquet : passez une ou plusieurs journées sur <strong>Molène</strong> ou <strong>Ouessant</strong>.</p>
-          <h3>Location de vélos</h3>
-          <p>🚲 Les Frères Complices — location et livraison sur réservation : <a href="https://www.lesfrerescomplices.com" target="_blank" rel="noopener">www.lesfrerescomplices.com</a></p>
-          <h3>Nos spots découverte incontournables</h3>
-          <ul>
-            <li>🌅 La balade sur la dune et la plage de Tréompan, le rocher du Serpent, le coucher du soleil au rocher du Lion</li>
-            <li>🪁 La plage des 3 Moutons et ses voiles multicolores, selon la marée</li>
-            <li>⛪ La route touristique de Landunvez — Chapelle de Saint Samson (continuez jusqu'à Melon, arrêtez-vous boire un verre « au Chenal » face à la mer)</li>
-            <li>🚢 Le port goémonier de Lanildut</li>
-            <li>⚓ Le port de l'Aber Wrac'h</li>
-            <li>🗼 Le Phare de l'île Vierge, depuis Lilia</li>
-            <li>🏔️ Les falaises de Ruscumunoc — sentiers escarpés vers les plages, la Pointe Corsen face à Ouessant (séparation Manche / Atlantique)</li>
-            <li>⛰️ La Pointe Saint-Mathieu</li>
-            <li>🚤 Le port du Conquet</li>
-          </ul>
-          <h3>Liens utiles</h3>
-          <p>🌐 <a href="https://www.iroise-bretagne.bzh" target="_blank" rel="noopener">Pays d'Iroise</a> · <a href="https://www.abers-tourisme.com" target="_blank" rel="noopener">Pays des Abers</a> · <a href="https://www.bretagne-celtic.com" target="_blank" rel="noopener">Bretagne Celtic</a> · <a href="https://www.bretagne.com" target="_blank" rel="noopener">Bretagne Tourisme</a></p>
-          <h3>Informations pratiques</h3>
-          <p>📍 <strong>Adresse</strong> : 1 rue de la Plage, 29840 Landunvez</p>
-          <p>🚗 <strong>Parking</strong> : Gratuit devant la maison</p>
-          <p>🛒 <strong>Commerces</strong> : Supermarché à 5 min en voiture, boulangerie à 2 min</p>
-        `,
-        `,
-        en: `
-          <p>We have placed many flyers that will give you a wealth of walking and activity ideas.</p>
-          <h3>Beaches</h3>
-          <ul>
-            <li>🏖️ <strong>Tréompan Beach</strong> — right outside your window!</li>
-            <li>🏄 <strong>3 Moutons Beach</strong> — popular spot for board sports, kite school</li>
-            <li>🏄 <strong>Penfoul spot</strong> — surfing and bodyboarding, renowned surf school</li>
-          </ul>
-          <h3>Water activities</h3>
-          <ul>
-            <li>🤿 Scuba diving schools</li>
-            <li>⛵ Sailing and kayak schools</li>
-            <li>🚶 The GR34 coastal path — walks and hikes</li>
-          </ul>
-          <h3>Islands</h3>
-          <p>Several islands accessible from Aber Ildut or Le Conquet: spend a day or more on <strong>Molène</strong> or <strong>Ouessant</strong>.</p>
-          <h3>Bike rental</h3>
-          <p>🚲 Les Frères Complices — rental and delivery on booking: <a href="https://www.lesfrerescomplices.com" target="_blank" rel="noopener">www.lesfrerescomplices.com</a></p>
-          <h3>Our must-see spots</h3>
-          <ul>
-            <li>🌅 Walk on the dune and Tréompan Beach, the Snake Rock, sunset at Lion Rock</li>
-            <li>🪁 3 Moutons Beach and its colourful sails, depending on the tide</li>
-            <li>⛪ Scenic road of Landunvez — Saint Samson Chapel (continue to Melon, stop for a drink at "Le Chenal" facing the sea)</li>
-            <li>🚢 Lanildut seaweed harbour</li>
-            <li>⚓ Aber Wrac'h harbour</li>
-            <li>🗼 Île Vierge Lighthouse, from Lilia</li>
-            <li>🏔️ Ruscumunoc cliffs — steep paths to beaches, Pointe Corsen facing Ouessant (English Channel / Atlantic divide)</li>
-            <li>⛰️ Pointe Saint-Mathieu</li>
-            <li>🚤 Le Conquet harbour</li>
-          </ul>
-          <h3>Useful links</h3>
-          <p>🌐 <a href="https://www.iroise-bretagne.bzh" target="_blank" rel="noopener">Pays d'Iroise</a> · <a href="https://www.abers-tourisme.com" target="_blank" rel="noopener">Pays des Abers</a></p>
-        `,
-        de: `
-          <p>Wir haben zahlreiche Flyer ausgelegt, die Ihnen viele Ideen für Spaziergänge und Aktivitäten bieten.</p>
-          <h3>Strände</h3>
-          <ul>
-            <li>🏖️ <strong>Strand von Tréompan</strong> — direkt vor Ihrem Fenster!</li>
-            <li>🏄 <strong>Strand 3 Moutons</strong> — beliebter Spot für Gleitsport, Kiteschule</li>
-            <li>🏄 <strong>Spot Penfoul</strong> — Surfen und Bodyboarden, renommierte Surfschule</li>
-          </ul>
-          <h3>Wassersport</h3>
-          <ul>
-            <li>🤿 Tauchschulen</li>
-            <li>⛵ Segel- und Kajakschulen</li>
-            <li>🚶 Der Küstenwanderweg GR34</li>
-          </ul>
-          <h3>Inseln</h3>
-          <p>Mehrere Inseln erreichbar ab Aber Ildut oder Le Conquet: verbringen Sie einen oder mehrere Tage auf <strong>Molène</strong> oder <strong>Ouessant</strong>.</p>
-          <h3>Fahrradverleih</h3>
-          <p>🚲 Les Frères Complices — Verleih und Lieferung auf Reservierung: <a href="https://www.lesfrerescomplices.com" target="_blank" rel="noopener">www.lesfrerescomplices.com</a></p>
-          <h3>Unsere Top-Empfehlungen</h3>
-          <ul>
-            <li>🌅 Spaziergang auf der Düne und dem Strand von Tréompan, der Schlangenfelsen, Sonnenuntergang am Löwenfelsen</li>
-            <li>🪁 Strand 3 Moutons und seine bunten Segel, je nach Gezeiten</li>
-            <li>⛪ Panoramastraße von Landunvez — Kapelle Saint Samson (weiter nach Melon, Stopp für ein Getränk im "Le Chenal" am Meer)</li>
-            <li>🚢 Seetanghafen Lanildut</li>
-            <li>⚓ Hafen Aber Wrac'h</li>
-            <li>🗼 Leuchtturm Île Vierge, von Lilia aus</li>
-            <li>🏔️ Klippen von Ruscumunoc — steile Pfade, Pointe Corsen mit Blick auf Ouessant (Ärmelkanal/Atlantik-Grenze)</li>
-            <li>⛰️ Pointe Saint-Mathieu</li>
-            <li>🚤 Hafen von Le Conquet</li>
-          </ul>
-          <h3>Nützliche Links</h3>
-          <p>🌐 <a href="https://www.iroise-bretagne.bzh" target="_blank" rel="noopener">Pays d'Iroise</a> · <a href="https://www.abers-tourisme.com" target="_blank" rel="noopener">Pays des Abers</a></p>
-        `,
-        es: `
-          <p>Hemos dejado numerosos folletos que le darán multitud de ideas de paseos y actividades.</p>
-          <h3>Playas</h3>
-          <ul>
-            <li>🏖️ <strong>Playa de Tréompan</strong> — ¡bajo sus ventanas!</li>
-            <li>🏄 <strong>Playa des 3 Moutons</strong> — spot famoso para deportes de deslizamiento, escuela de kite</li>
-            <li>🏄 <strong>Spot de Penfoul</strong> — surf y bodyboard, escuela de surf reconocida</li>
-          </ul>
-          <h3>Actividades náuticas</h3>
-          <ul>
-            <li>🤿 Escuelas de buceo</li>
-            <li>⛵ Escuelas de vela y kayak</li>
-            <li>🚶 El sendero GR34 recorre la costa — paseos y rutas de senderismo</li>
-          </ul>
-          <h3>Islas</h3>
-          <p>Varias islas accesibles desde Aber Ildut o Le Conquet: pase uno o varios días en <strong>Molène</strong> o <strong>Ouessant</strong>.</p>
-          <h3>Alquiler de bicicletas</h3>
-          <p>🚲 Les Frères Complices — alquiler y entrega con reserva: <a href="https://www.lesfrerescomplices.com" target="_blank" rel="noopener">www.lesfrerescomplices.com</a></p>
-          <h3>Nuestros lugares imprescindibles</h3>
-          <ul>
-            <li>🌅 Paseo por la duna y la playa de Tréompan, la roca de la Serpiente, puesta de sol en la roca del León</li>
-            <li>🪁 Playa des 3 Moutons y sus velas multicolores, según la marea</li>
-            <li>⛪ Ruta turística de Landunvez — Capilla de Saint Samson (siga hasta Melon, pare a tomar algo en "Le Chenal" frente al mar)</li>
-            <li>🚢 Puerto de algas de Lanildut</li>
-            <li>⚓ Puerto de Aber Wrac'h</li>
-            <li>🗼 Faro de la Île Vierge, desde Lilia</li>
-            <li>🏔️ Acantilados de Ruscumunoc — senderos escarpados, Pointe Corsen frente a Ouessant (separación Canal de la Mancha / Atlántico)</li>
-            <li>⛰️ Pointe Saint-Mathieu</li>
-            <li>🚤 Puerto de Le Conquet</li>
-          </ul>
-          <h3>Enlaces útiles</h3>
-          <p>🌐 <a href="https://www.iroise-bretagne.bzh" target="_blank" rel="noopener">Pays d'Iroise</a> · <a href="https://www.abers-tourisme.com" target="_blank" rel="noopener">Pays des Abers</a></p>
-        `,
-      },
-    },
-
-    // ── RESTAURANTS ET COMMERCES ──
-    {
-      icon: "🍽️",
-      title: { fr: "Restaurants et commerces", en: "Restaurants and shops", de: "Restaurants und Geschäfte", es: "Restaurantes y comercios" },
-      subtitle: { fr: "Où manger et faire ses courses", en: "Where to eat and shop", de: "Essen und Einkaufen", es: "Dónde comer y comprar" },
-      content: {
-        fr: `
-          <h3>Port de Portsall</h3>
-          <ul>
-            <li>🦑 <strong>Le Kraken</strong> — terrasse sur la mer</li>
-            <li>🍽️ <strong>Le Glenn</strong> — bons petits plats</li>
-            <li>🍀 <strong>Le O'DonNeil Irish Pub</strong></li>
-            <li>🥞 <strong>Crêperie La Chaumine</strong></li>
-            <li>🐟 <strong>L'Abéric</strong> — fumaison et cuisine de la mer d'Iroise</li>
-          </ul>
-          <h3>Poissonnerie</h3>
-          <p>Pêcherie vendant poissons et crustacés locaux sur le port de Portsall.</p>
-          <h3>Boulangerie</h3>
-          <p>Sur le port de Portsall, fermée uniquement le jeudi.</p>
-          <h3>Épicerie</h3>
-          <p>🛒 <strong>Carrefour Express</strong> — Bar al Lan (au-dessus du port), épicerie/traiteur, ouverte tous les jours de 8h à 20h.</p>
-          <h3>Supermarchés à Ploudalmézeau</h3>
-          <ul>
-            <li>Hypermarché Leclerc</li>
-            <li>Supermarché Casino</li>
-          </ul>
-        `,
-        en: `
-          <h3>Portsall harbour</h3>
-          <ul>
-            <li>🦑 <strong>Le Kraken</strong> — terrace overlooking the sea</li>
-            <li>🍽️ <strong>Le Glenn</strong> — great food</li>
-            <li>🍀 <strong>Le O'DonNeil Irish Pub</strong></li>
-            <li>🥞 <strong>Crêperie La Chaumine</strong></li>
-            <li>🐟 <strong>L'Abéric</strong> — smoked fish and Iroise sea cuisine</li>
-          </ul>
-          <h3>Fishmonger</h3>
-          <p>Local fish and shellfish at Portsall harbour.</p>
-          <h3>Bakery</h3>
-          <p>At Portsall harbour, closed only on Thursdays.</p>
-          <h3>Grocery</h3>
-          <p>🛒 <strong>Carrefour Express</strong> — Bar al Lan (above the harbour), grocery/deli, open daily 8am–8pm.</p>
-          <h3>Supermarkets in Ploudalmézeau</h3>
-          <ul>
-            <li>Leclerc hypermarket</li>
-            <li>Casino supermarket</li>
-          </ul>
-        `,
-        de: `
-          <h3>Hafen von Portsall</h3>
-          <ul>
-            <li>🦑 <strong>Le Kraken</strong> — Terrasse am Meer</li>
-            <li>🍽️ <strong>Le Glenn</strong> — gute Küche</li>
-            <li>🍀 <strong>Le O'DonNeil Irish Pub</strong></li>
-            <li>🥞 <strong>Crêperie La Chaumine</strong></li>
-            <li>🐟 <strong>L'Abéric</strong> — Räucherfisch und Meeresküche</li>
-          </ul>
-          <h3>Fischgeschäft</h3>
-          <p>Lokaler Fisch und Meeresfrüchte am Hafen von Portsall.</p>
-          <h3>Bäckerei</h3>
-          <p>Am Hafen von Portsall, nur donnerstags geschlossen.</p>
-          <h3>Lebensmittel</h3>
-          <p>🛒 <strong>Carrefour Express</strong> — Bar al Lan (oberhalb des Hafens), Lebensmittel/Feinkost, täglich 8–20 Uhr geöffnet.</p>
-          <h3>Supermärkte in Ploudalmézeau</h3>
-          <ul>
-            <li>Leclerc Hypermarkt</li>
-            <li>Casino Supermarkt</li>
-          </ul>
-        `,
-        es: `
-          <h3>Puerto de Portsall</h3>
-          <ul>
-            <li>🦑 <strong>Le Kraken</strong> — terraza frente al mar</li>
-            <li>🍽️ <strong>Le Glenn</strong> — buena cocina</li>
-            <li>🍀 <strong>Le O'DonNeil Irish Pub</strong></li>
-            <li>🥞 <strong>Crêperie La Chaumine</strong></li>
-            <li>🐟 <strong>L'Abéric</strong> — ahumados y cocina del mar de Iroise</li>
-          </ul>
-          <h3>Pescadería</h3>
-          <p>Pescados y mariscos locales en el puerto de Portsall.</p>
-          <h3>Panadería</h3>
-          <p>En el puerto de Portsall, cerrada solo los jueves.</p>
-          <h3>Supermercado de proximidad</h3>
-          <p>🛒 <strong>Carrefour Express</strong> — Bar al Lan (encima del puerto), tienda/delicatessen, abierta todos los días de 8h a 20h.</p>
-          <h3>Supermercados en Ploudalmézeau</h3>
-          <ul>
-            <li>Hipermercado Leclerc</li>
-            <li>Supermercado Casino</li>
-          </ul>
-        `,
-      },
-    },
-
-    // ── POUBELLES ET TRI ──
-    {
-      icon: "♻️",
-      title: { fr: "Poubelles et tri", en: "Bins and recycling", de: "Müll und Recycling", es: "Basura y reciclaje" },
-      subtitle: { fr: "Où et comment trier", en: "Where and how to sort", de: "Wo und wie trennen", es: "Dónde y cómo reciclar" },
-      content: {
-        fr: `
-          <h3>Dans le logement</h3>
-          <p>Des poubelles de tri sont disponibles pour les ordures ménagères et les emballages.</p>
-          <h3>À l'extérieur</h3>
-          <p>Des bacs de grande taille sont disponibles près du garage, ainsi qu'un conteneur à verre.</p>
-          <h3>Points d'apport volontaire</h3>
-          <ul>
-            <li>À l'entrée du Chemin des Dunes</li>
-            <li>Au rond-point de la rue du Calvaire et de la rue Creach al Louarn, en direction de Portsall</li>
-          </ul>
-          <h3>Ramassage</h3>
-          <p>Le ramassage se fait le <strong>vendredi matin</strong>, en alternance :</p>
-          <ul>
-            <li>🔵 Déchets ménagers (bac bleu)</li>
-            <li>🟡 Emballages (bac jaune)</li>
-          </ul>
-          <div class="warn-box">⚠️ Deux semaines séparant le ramassage des ordures, par mesure d'hygiène, nous vous conseillons d'apporter régulièrement vos sacs au point de collecte du rond-point de la rue du Calvaire.</div>
-        `,
-        en: `
-          <h3>In the accommodation</h3>
-          <p>Sorting bins are available for household waste and packaging.</p>
-          <h3>Outside</h3>
-          <p>Large bins are available near the garage, along with a glass container.</p>
-          <h3>Drop-off points</h3>
-          <ul>
-            <li>At the entrance to Chemin des Dunes</li>
-            <li>At the roundabout of rue du Calvaire and rue Creach al Louarn, towards Portsall</li>
-          </ul>
-          <h3>Collection</h3>
-          <p>Collection is on <strong>Friday mornings</strong>, alternating between:</p>
-          <ul>
-            <li>🔵 Household waste (blue bin)</li>
-            <li>🟡 Packaging (yellow bin)</li>
-          </ul>
-          <div class="warn-box">⚠️ With two weeks between collections, for hygiene reasons we recommend taking your bags regularly to the collection point at the rue du Calvaire roundabout.</div>
-        `,
-        de: `
-          <h3>In der Unterkunft</h3>
-          <p>Mülltrennung für Hausmüll und Verpackungen ist vorhanden.</p>
-          <h3>Draußen</h3>
-          <p>Große Tonnen stehen in der Nähe der Garage, sowie ein Glascontainer.</p>
-          <h3>Sammelstellen</h3>
-          <ul>
-            <li>Am Eingang des Chemin des Dunes</li>
-            <li>Am Kreisverkehr rue du Calvaire / rue Creach al Louarn, Richtung Portsall</li>
-          </ul>
-          <h3>Abholung</h3>
-          <p>Abholung ist <strong>freitagmorgens</strong>, abwechselnd:</p>
-          <ul>
-            <li>🔵 Hausmüll (blaue Tonne)</li>
-            <li>🟡 Verpackungen (gelbe Tonne)</li>
-          </ul>
-          <div class="warn-box">⚠️ Da zwischen den Abholungen zwei Wochen liegen, empfehlen wir aus Hygienegründen, Ihre Säcke regelmäßig zur Sammelstelle am Kreisverkehr rue du Calvaire zu bringen.</div>
-        `,
-        es: `
-          <h3>En el alojamiento</h3>
-          <p>Hay papeleras de reciclaje para residuos domésticos y envases.</p>
-          <h3>En el exterior</h3>
-          <p>Contenedores grandes disponibles junto al garaje, además de un contenedor de vidrio.</p>
-          <h3>Puntos de recogida</h3>
-          <ul>
-            <li>A la entrada del Chemin des Dunes</li>
-            <li>En la rotonda de la rue du Calvaire y la rue Creach al Louarn, dirección Portsall</li>
-          </ul>
-          <h3>Recogida</h3>
-          <p>La recogida se realiza los <strong>viernes por la mañana</strong>, alternando:</p>
-          <ul>
-            <li>🔵 Residuos domésticos (contenedor azul)</li>
-            <li>🟡 Envases (contenedor amarillo)</li>
-          </ul>
-          <div class="warn-box">⚠️ Con dos semanas entre recogidas, por higiene le recomendamos llevar sus bolsas regularmente al punto de recogida de la rotonda de la rue du Calvaire.</div>
-        `,
-      },
-    },
-
-    // ── UTILITAIRES ──
-    {
-      icon: "💡",
-      title: { fr: "Utilitaires", en: "Utilities", de: "Versorgung", es: "Servicios públicos" },
-      subtitle: { fr: "Électricité, eau, gaz", en: "Electricity, water, gas", de: "Strom, Wasser, Gas", es: "Electricidad, agua, gas" },
-      content: {
-        fr: `
-          <h3>Électricité</h3>
-          <p>Compteur Linky installé. L'électricité est incluse dans le tarif de location.</p>
-          <h3>Eau</h3>
-          <p>Eau potable et chaude incluse dans le tarif de location.</p>
-          <h3>Gaz</h3>
-          <p>Chauffage au gaz inclus dans le tarif de location.</p>
-        `,
-        en: `
-          <h3>Electricity</h3>
-          <p>Linky meter installed. Electricity is included in the rental price.</p>
-          <h3>Water</h3>
-          <p>Drinking and hot water included in the rental price.</p>
-          <h3>Gas</h3>
-          <p>Gas heating included in the rental price.</p>
-        `,
-        de: `
-          <h3>Strom</h3>
-          <p>Linky-Zähler installiert. Strom ist im Mietpreis enthalten.</p>
-          <h3>Wasser</h3>
-          <p>Trink- und Warmwasser im Mietpreis enthalten.</p>
-          <h3>Gas</h3>
-          <p>Gasheizung im Mietpreis enthalten.</p>
-        `,
-        es: `
-          <h3>Electricidad</h3>
-          <p>Contador Linky instalado. La electricidad está incluida en el precio del alquiler.</p>
-          <h3>Agua</h3>
-          <p>Agua potable y caliente incluida en el precio del alquiler.</p>
-          <h3>Gas</h3>
-          <p>Calefacción de gas incluida en el precio del alquiler.</p>
-        `,
-      },
-    },
-
-    // ── NUMÉROS UTILES ──
-    {
-      icon: "🆘",
-      title: { fr: "Numéros utiles", en: "Useful numbers", de: "Wichtige Nummern", es: "Números útiles" },
-      subtitle: { fr: "Urgences et services", en: "Emergency and services", de: "Notfälle und Dienste", es: "Urgencias y servicios" },
-      content: {
-        fr: `
-          <h3>Urgences</h3>
-          <ul>
-            <li>🚒 Pompiers : <a href="tel:18">18</a></li>
-            <li>🚑 SAMU : <a href="tel:15">15</a></li>
-            <li>👮 Police : <a href="tel:17">17</a></li>
-            <li>📞 Numéro européen des secours : <a href="tel:112">112</a></li>
-            <li>⚓ Secours en mer : <a href="tel:196">196</a></li>
-          </ul>
-          <h3>Services locaux</h3>
-          <ul>
-            <li>🏥 Médecin : Cabinet médical de Portsall, Bar al Lan — <a href="tel:0298487752">02 98 48 77 52</a></li>
-            <li>💊 Pharmacies : Ploudalmézeau et Bar al Lan</li>
-            <li>⛽ Station service : Bar al Lan, Ploudalmézeau</li>
-            <li>🏧 Distributeurs de billets : Ploudalmézeau</li>
-          </ul>
-        `,
-        en: `
-          <h3>Emergency</h3>
-          <ul>
-            <li>🚒 Fire department: <a href="tel:18">18</a></li>
-            <li>🚑 Ambulance (SAMU): <a href="tel:15">15</a></li>
-            <li>👮 Police: <a href="tel:17">17</a></li>
-            <li>📞 European emergency number: <a href="tel:112">112</a></li>
-            <li>⚓ Sea rescue: <a href="tel:196">196</a></li>
-          </ul>
-          <h3>Local services</h3>
-          <ul>
-            <li>🏥 Doctor: Cabinet médical de Portsall, Bar al Lan — <a href="tel:0298487752">02 98 48 77 52</a></li>
-            <li>💊 Pharmacies: Ploudalmézeau and Bar al Lan</li>
-            <li>⛽ Petrol station: Bar al Lan, Ploudalmézeau</li>
-            <li>🏧 ATMs: Ploudalmézeau</li>
-          </ul>
-        `,
-        de: `
-          <h3>Notfälle</h3>
-          <ul>
-            <li>🚒 Feuerwehr: <a href="tel:18">18</a></li>
-            <li>🚑 Rettungsdienst (SAMU): <a href="tel:15">15</a></li>
-            <li>👮 Polizei: <a href="tel:17">17</a></li>
-            <li>📞 Europäische Notrufnummer: <a href="tel:112">112</a></li>
-            <li>⚓ Seenotrettung: <a href="tel:196">196</a></li>
-          </ul>
-          <h3>Lokale Dienste</h3>
-          <ul>
-            <li>🏥 Arzt: Cabinet médical de Portsall, Bar al Lan — <a href="tel:0298487752">02 98 48 77 52</a></li>
-            <li>💊 Apotheken: Ploudalmézeau und Bar al Lan</li>
-            <li>⛽ Tankstelle: Bar al Lan, Ploudalmézeau</li>
-            <li>🏧 Geldautomaten: Ploudalmézeau</li>
-          </ul>
-        `,
-        es: `
-          <h3>Urgencias</h3>
-          <ul>
-            <li>🚒 Bomberos: <a href="tel:18">18</a></li>
-            <li>🚑 Ambulancia (SAMU): <a href="tel:15">15</a></li>
-            <li>👮 Policía: <a href="tel:17">17</a></li>
-            <li>📞 Número europeo de emergencias: <a href="tel:112">112</a></li>
-            <li>⚓ Rescate marítimo: <a href="tel:196">196</a></li>
-          </ul>
-          <h3>Servicios locales</h3>
-          <ul>
-            <li>🏥 Médico: Cabinet médical de Portsall, Bar al Lan — <a href="tel:0298487752">02 98 48 77 52</a></li>
-            <li>💊 Farmacias: Ploudalmézeau y Bar al Lan</li>
-            <li>⛽ Gasolinera: Bar al Lan, Ploudalmézeau</li>
-            <li>🏧 Cajeros automáticos: Ploudalmézeau</li>
-          </ul>
-        `,
-      },
-    },
-
-  ],
+    es: "Ty an aod — Guía de bienvenida digital"
+  }
 };
-
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║  🚫 NE PAS MODIFIER EN DESSOUS — moteur de rendu              ║
-// ╚══════════════════════════════════════════════════════════════════╝
-
-let currentLang = 'fr';
-
 function t(obj) {
   if (typeof obj === 'string') return obj;
   return obj[currentLang] || obj.fr || '';
 }
-
 function setLang(lang) {
   currentLang = lang;
   const flags = { fr: '🇫🇷', en: '🇬🇧', de: '🇩🇪', es: '🇪🇸' };
@@ -1289,36 +243,30 @@ function setLang(lang) {
   });
   renderHome();
 }
-
 function renderHome() {
   document.getElementById('hero-title').textContent = CONFIG.titre;
   document.getElementById('hero-tagline').textContent = t(CONFIG.tagline);
   if (CONFIG.heroImage) {
-    document.getElementById('hero-bg').style.backgroundImage = `url('${CONFIG.heroImage}')`;
+    document.getElementById('hero-bg').style.backgroundImage = 'url(' + CONFIG.heroImage + ')';
   }
-
   const msg = document.getElementById('welcome-msg');
-  msg.innerHTML = `<span class="host-initials">${CONFIG.hostInitials}</span> ${t(CONFIG.bienvenue).replace(/\n/g, '<br>')}`;
-
+  msg.innerHTML = '<span class="host-initials">' + CONFIG.hostInitials + '</span> ' + t(CONFIG.bienvenue).replace(/\n/g, '<br>');
   document.getElementById('guide-title').textContent = t(CONFIG.guideTitle);
   document.getElementById('footer').textContent = t(CONFIG.footer);
-
-  const grid = document.getElementById('nav-grid');
-  grid.innerHTML = CONFIG.sections.map((s, i) => `
-    <a class="nav-card" onclick="openPage(${i})">
-      <div class="card-icon">${s.icon}</div>
-      <div class="card-text">
-        <div class="card-title">${t(s.title)}</div>
-        <div class="card-subtitle">${t(s.subtitle)}</div>
-      </div>
-      <div class="card-arrow">›</div>
-    </a>
-  `).join('');
-
-  document.title = `${CONFIG.titre} — ${t(CONFIG.guideTitle)}`;
+  document.getElementById('nav-grid').innerHTML = '';
+  if (typeof CONFIG.sections !== 'undefined' && CONFIG.sections.length > 0) {
+    CONFIG.sections.forEach((s, i) => {
+      const card = document.createElement('a');
+      card.className = 'nav-card';
+      card.onclick = () => openPage(i);
+      card.innerHTML = '<div class="card-icon">' + s.icon + '</div><div class="card-text"><div class="card-title">' + t(s.title) + '</div><div class="card-subtitle">' + t(s.subtitle) + '</div></div><div class="card-arrow">›</div>';
+      document.getElementById('nav-grid').appendChild(card);
+    });
+  }
+  document.title = CONFIG.titre + ' — ' + t(CONFIG.guideTitle);
 }
-
 function openPage(index) {
+  if (!CONFIG.sections || !CONFIG.sections[index]) return;
   const section = CONFIG.sections[index];
   document.getElementById('home-view').classList.add('hidden');
   const page = document.getElementById('page-detail');
@@ -1328,14 +276,14 @@ function openPage(index) {
   document.getElementById('page-body').innerHTML = t(section.content);
   window.scrollTo(0, 0);
 }
-
 function goHome() {
   document.getElementById('page-detail').classList.remove('active');
   document.getElementById('home-view').classList.remove('hidden');
   window.scrollTo(0, 0);
 }
-
-document.addEventListener('DOMContentLoaded', () => renderHome());
+document.addEventListener('DOMContentLoaded', function() {
+  renderHome();
+});
 </script>
 </body>
 </html>
