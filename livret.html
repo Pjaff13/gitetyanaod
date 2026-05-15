@@ -1234,8 +1234,6 @@ const CONFIG = {
 // ║  🚫 NE PAS MODIFIER EN DESSOUS — moteur de rendu              ║
 // ╚══════════════════════════════════════════════════════════════════╝
 
-let currentLang = 'fr';
-
 function t(obj) {
   if (typeof obj === 'string') return obj;
   return obj[currentLang] || obj.fr || '';
