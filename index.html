@@ -82,6 +82,34 @@
     .hero-content { padding: 1.5rem; }
   }
 
+  /* MOBILE-VERTICAL (OPTIMISATION) */
+  @media (orientation: portrait) and (max-width: 900px) {
+    .hero { min-height: 52vh; align-items: flex-start; padding-top: 1.2rem; }
+    .hero-content { padding: 1rem; max-width: 100%; }
+    .hero h1 { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+    .hero .badge { font-size: .85rem; padding: .3rem .9rem; margin-top: .6rem; }
+
+    .main-photo-wrapper { max-width: 100%; padding: 0 0.4rem; }
+    .main-photo { border-radius: 12px; }
+    .arrow-btn { width: 44px; height: 44px; font-size: 1.05rem; }
+    .prev-btn { left: 6px; }
+    .next-btn { right: 6px; }
+
+    .thumbnails-container { gap: 0.5rem; padding: 0.4rem 0; }
+    .thumbnail { width: 64px; height: 64px; border-radius: 8px; }
+
+    .nav { justify-content: flex-start; overflow-x: auto; padding: .5rem; gap: .5rem; }
+    .nav a { white-space: nowrap; }
+
+    .equip-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .6rem; }
+    .equip-item { padding: .6rem .8rem; font-size: .9rem; align-items: center; }
+
+    section { padding: 1.2rem 0.8rem; }
+    .contact-card { padding: 1rem; }
+    .lang-toggle { top: .6rem; right: .6rem; }
+    .lightbox img { max-width: 98%; max-height: 95vh; }
+  }
+
   
   /* NAV STICKY */
   .nav {
